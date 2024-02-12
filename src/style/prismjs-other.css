@@ -1,0 +1,69 @@
+/** line number **/
+pre[class*='language-'].line-numbers {
+    counter-reset: linenumber;
+    padding-left: 3.5em;
+}
+
+pre[class*='language-'].line-numbers > code {
+    position: relative;
+    white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+    position: absolute;
+    top: 0px;
+    left: -45px;
+    font-size: 100%;
+    /* works for line-numbers below 1000 lines */
+    letter-spacing: -1px;
+    border-right: 1px solid #999;
+    
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.line-numbers-rows > span {
+    display: block;
+    counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+    content: counter(linenumber);
+    color: #999;
+    display: block;
+    padding-right: 0.8em;
+    text-align: right;
+}
+
+/** code block header **/
+div[data-remark-code-title] {
+    display: block;
+    height: 36px;
+    background-color: #646464;
+    border-radius: 4px 4px 0px 0px;
+
+    color: #d1d1d1;
+    padding: 6px 6px 2px 8px;
+    font-size: 16px;
+}
+
+div[data-remark-code-title] + div > pre {
+    border-radius: 0px 0px 4px 4px !important;
+}
+
+.show-language-name {
+    display: inline;
+    float: right;
+    color: #aaaaaa;
+    background-color: #2b2b2b;
+    padding: 8px 8px 4px 8px;
+    pointer-events: none;
+}
+
+/** gatsby-highlight **/
+.gatsby-highlight {
+    margin: 32px 32px;
+}

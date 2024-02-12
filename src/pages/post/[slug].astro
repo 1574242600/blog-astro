@@ -1,0 +1,29 @@
+---
+import { getEntry } from 'astro:content'
+
+import Post from '@template/post.astro'
+import Head from '@components/head.astro'
+import Layout from '@layouts/Layout.astro'
+import { getPosts } from '@utils/index'
+
+import siteMetadata from '@data/siteMetadata.json'
+
+const { slug } = Astro.params
+const post = await getEntry('posts', slug)
+const { remarkPluginFrontmatter } = await post.render()
+
+export async function getStaticPaths() {
+    const allBlogPosts = await getPosts()
+
+    return allBlogPosts
+        .map((post) => ({ params: { slug: post.slug } }))
+}
+---
+<Head>
+    <title>{post.data.title} | {siteMetadata.title}</title>
+    <meta name="description" content={remarkPluginFrontmatter.excerpt.text} />
+</Head>
+<Layout pagePath='/post'>
+    <Post post={post} />
+</Layout>
+

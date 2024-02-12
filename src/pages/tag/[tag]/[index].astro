@@ -1,0 +1,53 @@
+---
+import Index from '@template/index.astro'
+import Layout from '@layouts/Layout.astro'
+import Head from '@components/head.astro'
+
+import { getPosts, genPagePaths, getTags } from '@utils/index'
+import siteMetadata from '@data/siteMetadata.json'
+import config from '@data/config.json'
+
+const { tag, index } = Astro.params
+const currPage = Number(index)
+
+const posts = await getPosts(({ data }) => data.tags?.map(v => v.toLowerCase()).includes(tag) || false)
+
+const totalPage = Math.ceil(posts.length / config.itemsPerPage)
+const pagePaths = genPagePaths(`/tag/${tag}/`, totalPage)
+
+export async function getStaticPaths() {
+    const tags = await getTags()
+
+    return Object.keys(tags)
+        .reduce<StaticPath[]>((pre, cur) => {
+            const totalPage = Math.ceil(tags[cur] / config.itemsPerPage)
+
+            pre.push(...Array(totalPage)
+                .fill(0)
+                .map((_, i) => ({ params: {index: i + 1, tag: cur} })))
+
+            return pre
+        } , []) 
+}
+
+interface StaticPath {
+    params: {
+        index: number
+        tag: string
+    }
+}
+---
+<Head>
+    <title>标签: {tag} 第 {currPage} 页 {' | '}{siteMetadata.title}</title>
+    <meta name="description" content={posts.map(post => post.data.title).join(' | ').slice(0, 50)} />
+</Head>
+<Layout pagePath='/'>
+    
+    <Index 
+        title={`标签：${tag}`}
+        currPage={currPage} 
+        posts={posts}
+        pagePaths={pagePaths}
+    />
+</Layout>
+

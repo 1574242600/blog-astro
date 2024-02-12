@@ -1,0 +1,76 @@
+---
+import { getPosts } from '@utils/index'
+
+import Head from '@components/head.astro'
+import Box from '@components/box.astro'
+import Link from '@components/link.astro'
+import Layout from 'src/layouts/Layout.astro'
+
+import siteMetadata from '@data/siteMetadata.json'
+
+const allBlogPosts = await getPosts()
+const byYear = toByYear(allBlogPosts)
+const yearIndex = Object.keys(byYear).reverse()
+
+
+function toByYear(posts: Awaited<ReturnType<typeof getPosts>>) {
+    return posts.reduce<ByYear>((result, post) => {
+        const date = new Date(post.data.date)
+        const year = date.getFullYear()
+
+        if (result[year] === undefined) result[year] = []
+        result[year].push(post)
+
+        return result
+    }, {})
+}
+    
+function dateToString (date: Date): string {
+    return `${date.getMonth() + 1}-${date.getDate()}`
+}
+
+type ByYear = Record<string, Array<{
+    id: string
+    slug: string
+    body: string
+    collection: string
+    data: {
+        title: string
+        author: string
+        date: Date
+        update?: Date | undefined
+        tags?: string[] | undefined
+    }}>>
+---
+<Head>
+    <title>归档{' | '}{siteMetadata.title}</title>
+    <meta name="description" content={'归档页面'} />
+</Head>
+<Layout pagePath='/archives'>
+    <div class={'w-full flex flex-row justify-center lg:mt-8'}>
+        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full'>
+            <div class='p-4'>
+                <ul>
+                    {
+                        yearIndex.map((year) => (
+                            <li>
+                                <h3 class='text-2xl font-bold font-mono text-gray-600'>{ year }</h3>
+                                <ul class='list-disc ml-8'>
+                                    { byYear[year].map((post) => {
+                                        const { data, slug } = post
+                                        
+                                        return <li class='mt-1 space-x-2 border-b-2 border-dashed border-gray-300 hover:text-blue-500'>
+                                            <time datetime={ data.date.toISOString() }>{ dateToString(new Date(data.date)) }</time>
+                                            <Link href={`/post/${slug}`}>{ data.title }</Link>
+                                        </li>
+                                        
+                                    })}
+                                </ul>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </Box>
+    </div>
+</Layout>

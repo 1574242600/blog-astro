@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {         
+    "baseUrl": ".",         
+    "esModuleInterop": true,                                                          
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@data/*": ["./src/data/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@template/*": ["./src/template/*"]
+    }
+  },
+  "extends": "astro/tsconfigs/strict"
+}

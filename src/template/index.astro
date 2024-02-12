@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+import PostItem from '@components/postItem.astro'
+import Pagination from '@components/pagination'
+
+import { initRemarkPluginFrontmatter } from '@utils/index'
+
+import config from '@data/config.json'
+
+const { itemsPerPage } = config
+const { currPage,  posts, pagePaths, title } = Astro.props
+const index = Number(currPage)
+
+const currPageItems = posts.slice((index - 1) * itemsPerPage, index * itemsPerPage)
+
+
+interface Props {
+    title?: string
+    currPage: number,
+    pagePaths: string[]
+    posts: CollectionEntry<'posts'>[]
+}
+---
+<div class='w-full'>
+    { title && <div class="mt-4 lg:ml-8 lg-m:text-center text-3xl font-bold font-mono text-gray-600">{title}</div> }
+    <div class='mt-8 space-y-8'>
+        {
+            currPageItems.map(async (post) => {
+                const { remarkPluginFrontmatter }= await post.render()
+                const frontmatter = initRemarkPluginFrontmatter(remarkPluginFrontmatter)
+
+                return (
+                    <div class='w-full flex flex-row justify-center'>
+                        <PostItem 
+                            frontmatter={frontmatter}
+                            path={`/post/${post.slug}`}
+                        />
+                    </div>
+                )
+            })
+        }
+    </div>
+    <div class='mb-4 mt-12 '>
+        <Pagination
+            pagePaths={pagePaths}
+            currentPage={index}
+            lengthLimit={10}
+            client:only="solid"
+        />
+    </div>
+</div>

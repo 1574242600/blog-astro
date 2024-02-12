@@ -1,0 +1,72 @@
+---
+import 'disqusjs/dist/styles/disqusjs.css'
+
+interface Props {
+    title: string
+    siteTitle: string
+    identifier: string
+    shortname: string
+    api: string
+    apiKey: string
+}
+
+const { 
+    title, 
+    identifier, 
+    shortname, 
+    siteTitle, 
+    api, 
+    apiKey, 
+} = Astro.props
+---
+<div 
+    id="disqus-comment" 
+    data-title={title}
+    data-siteTitle={siteTitle}
+    data-id={identifier}
+    data-shortname={shortname}
+    data-api={api}
+    data-apikey={apiKey}
+>
+    <div class="animate-pulse font-medium text-gray-600">加载中...</div>
+</div>
+
+<script>
+import DisqusJS from 'disqusjs'
+
+const handler = () => {
+    const div = document.getElementById('disqus-comment')
+    
+    if (div) {
+        const { title, id, shortname, siteTitle, api, apikey } = div.dataset
+        if (window.disqusjs) window.disqusjs.destroy()
+
+        window.disqusjs = new DisqusJS({
+            shortname: shortname as string,
+            siteName: siteTitle,
+            identifier: id,
+            title: title,
+            url: location.href,
+            api: api,
+            apikey: apikey as string
+        })
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                requestIdleCallback(() => {
+                    div.innerHTML = ''
+                    window.disqusjs?.render(div)
+                })
+                observer.disconnect()
+            }
+        }, { 
+            root: document.getElementById('body'),
+            threshold: 0.5
+        })
+
+        observer.observe(div)
+    }
+}
+
+document.addEventListener('turbo:load', handler)
+</script>
