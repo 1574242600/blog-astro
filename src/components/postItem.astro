@@ -1,0 +1,40 @@
+---
+import PostHeader from './postHeader.astro'
+import Divider from './divider.astro'
+import Box from './box.astro'
+
+interface Props {
+    frontmatter: {
+        update?: string
+        title: string
+        tags?: string[]
+        date: string
+        minutesRead: number
+        excerpt: {
+            html: string
+        }
+    }
+    path: string
+}
+
+const widthClass = ' xl:w-3xl lg:w-2xl md:w-xl w-full'
+const buttonClass = 'inline-block w-18 h-8 p-2 text-sm font-bold font-mono shadow text-gray-100 bg-sky-400 hover:bg-sky-500'
+
+const { frontmatter, path } = Astro.props
+const { excerpt } = frontmatter
+---
+<Box className={'p-6 ' + widthClass}>
+    <article>
+        <PostHeader frontmatter={frontmatter} titleLevel={2} />
+        <Divider />
+        <div class='heti m-auto pt-4 pl-2 !max-w-2xl' set:html={excerpt.html} />
+    </article>
+    <Divider />
+    <a
+        class='block text-center mt-4 '
+        href={path}
+    >
+        <div class={buttonClass}>阅读更多</div>
+    
+    </a>
+</Box>

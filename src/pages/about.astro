@@ -1,0 +1,43 @@
+---
+import Box from '@components/box.astro'
+import Divider from '@components/divider.astro'
+import Layout from '@layouts/Layout.astro'
+import Head from '@components/head.astro'
+import DisqusJS from '@components/comment/disqus-js.astro'
+
+import * as about from '@data/about.md'
+import siteMetadata from '@data/siteMetadata.json'
+
+const { comment: { config: commentConfig } } = siteMetadata
+---
+<Head>
+    <title>关于{' | '}{siteMetadata.title}</title>
+    <meta name="description" content={'归档页面'} />
+</Head>
+<Layout pagePath='/about'>
+    <div class='w-full flex flex-row justify-center lg:mt-8'>
+        <div class='xl:w-3xl lg:w-2xl md:w-xl w-full'>
+            <Box>
+                <article class='p-6'>
+                    <h1 class='text-2xl font-bold font-mono text-center text-gray-600 mb-2'>{about.frontmatter.title}</h1>
+                    <Divider />
+                    <div class='heti m-auto pt-4 !max-w-2xl'>
+                        <about.Content />
+                    </div>
+                </article>
+            </Box>
+            <Box className='mt-8 mb-8'>
+                <div class='p-2'> 
+                    <DisqusJS
+                        title={about.frontmatter.title}
+                        siteTitle={siteMetadata.title}
+                        identifier='/post/about/'
+                        shortname={commentConfig.shortname}
+                        api={commentConfig.api}
+                        apiKey={commentConfig.apikey}
+                    />
+                </div>
+            </Box>
+        </div>
+    </div>
+</Layout>

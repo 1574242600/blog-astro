@@ -1,0 +1,34 @@
+---
+import Age from './age'
+import Link from './link.astro'
+
+interface Props {
+    title: string
+    author: string
+    since: string
+}
+
+const { title, author, since } = Astro.props
+---
+
+<div
+    class='w-full p-1 bg-gray-100 text-xs text-center font-medium text-gray-400'
+>
+    <Age since={since} client:only="solid" />
+    <div>
+        © {new Date().getFullYear()}
+        {title}. {'Powered by'}
+        <Link href={'//astro.build/'}>astro</Link>
+    </div>
+    <div>
+        <span>Made with by {author}.</span>
+    </div>
+    <div class='flex flex-row justify-center'>
+        <span class='basis-10'>
+            <Link href={'/sitemap-index.xml'}>SiteMap</Link>
+        </span>
+        <span class='basis-10'>
+            <Link href={'/rss.xml'}>RSS</Link>
+        </span>
+    </div>
+</div>
