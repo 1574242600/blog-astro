@@ -6,6 +6,7 @@ get_data() {
 
 main() {
     get_data
+    pnpm install https://github.com/1574242600/astro-rehype-excerpt
     pnpm run build
 }
 
