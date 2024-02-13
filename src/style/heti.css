@@ -296,11 +296,7 @@
 .heti code,
 .heti heti-spacing,
 .heti [lang=en-US] {
-    letter-spacing: normal;
-}
-
-.heti code {
-    color: #47769a;
+    letter-spacing: normal
 }
 
 .heti h1,
