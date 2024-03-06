@@ -17,8 +17,10 @@ export default {
                 '3xl': '768px',
                 '2xl': '672px',
                 xl: '576px'
+            },
+            fontFamily: {
+                'mono': ['ui-monospace', 'WQY ZenHei Mono']
             }
-
         }
     },
     plugins: []

@@ -8,5 +8,6 @@ export default defineEcConfig({
         frames: {
             shadowColor: '#ffffff00',
         },
+        codeFontFamily: 'Delugia, ui-monospace'
     }
 })
