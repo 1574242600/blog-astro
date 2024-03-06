@@ -1,3 +1,4 @@
+import fs from 'fs/promises'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 
@@ -39,6 +40,10 @@ export function initRemarkPluginFrontmatter(obj: object): PostsRemarkPluginFront
     }
 
     return Object.assign({}, defaultRemarkPluginFrontmatter, obj)
+}
+
+export function readFontsFile(name: string) {
+    return fs.readFile(`./public/fonts/${name}`)
 }
 
 export interface PostsRemarkPluginFrontmatter {
