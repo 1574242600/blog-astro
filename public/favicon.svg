@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
+   sodipodi:docname="logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.57568359"
+     inkscape:cx="-166.75827"
+     inkscape:cy="-105.96098"
+     inkscape:window-width="2560"
+     inkscape:window-height="1482"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="false" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="背景"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#4ade80;fill-opacity:1;stroke-width:0.687"
+       id="rect1"
+       width="512"
+       height="512"
+       x="0"
+       y="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;font-family:'WenQuanYi Zen Hei';-inkscape-font-specification:'WenQuanYi Zen Hei';text-align:start;text-anchor:start;white-space:pre;inline-size:108.936;display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0.687"
+       x="197.68883"
+       y="195.07848"
+       id="text4"
+       transform="matrix(22.282398,0,0,16.410256,-4387.4864,-2765.2877)"><tspan
+         x="197.68883"
+         y="195.07848"
+         id="tspan1">N</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="图层 2" />
+</svg>
