@@ -4,11 +4,14 @@ import { getEntry } from 'astro:content'
 import Post from '@template/post.astro'
 import Head from '@components/head.astro'
 import Layout from '@layouts/Layout.astro'
+import PostPageHead from '@components/postPageHead.astro'
 import { getPosts } from '@utils/index'
 
 import siteMetadata from '@data/siteMetadata.json'
 
 const { slug } = Astro.params
+const { title, siteUrl } = siteMetadata
+
 const post = await getEntry('posts', slug)
 const { remarkPluginFrontmatter } = await post.render()
 
@@ -20,8 +23,14 @@ export async function getStaticPaths() {
 }
 ---
 <Head>
-    <title>{post.data.title} | {siteMetadata.title}</title>
+    <title>{post.data.title} | {title}</title>
     <meta name="description" content={remarkPluginFrontmatter.excerpt.text} />
+    <PostPageHead 
+        siteTitle={title}
+        siteUrl={siteUrl}
+        description={remarkPluginFrontmatter.excerpt.text}
+        post={post}
+    />
 </Head>
 <Layout pagePath='/post'>
     <Post post={post} />

@@ -1,0 +1,27 @@
+---
+import { type CollectionEntry } from 'astro:content'
+
+const { post, siteUrl, siteTitle, description } = Astro.props
+const postUrl = `${siteUrl}/post/${post.slug}`
+
+interface Props {
+    siteTitle: string,
+    siteUrl: string,
+    description: string,
+    post: CollectionEntry<'posts'>
+}
+---
+<meta name="author" content={post.data.author}>
+<meta property="og:type" content="article">
+<meta property="og:title" content={post.data.title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={postUrl}>
+<meta property="og:site_name" content={siteTitle}>
+<meta property="og:locale" content="zh-Hans">
+<meta property="article:author" content={post.data.author}>
+<meta property="article:published_time" content={post.data.date.toISOString()}>
+<!--todo
+satori
+<meta property="og:image" content="">
+-->
+<link rel="canonical" href={postUrl}>
