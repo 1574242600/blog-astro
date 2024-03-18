@@ -18,7 +18,9 @@ export default {
                 '2xl': '672px',
                 xl: '576px'
             },
-
+            fontFamily: {
+                'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono']
+            }
         }
     },
     plugins: []
