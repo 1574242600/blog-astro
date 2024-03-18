@@ -6,8 +6,7 @@ export default defineEcConfig({
     },
     styleOverrides: {
         frames: {
-            shadowColor: '#ffffff00',
+            shadowColor: '#ffffff00'
         },
-        codeFontFamily: 'Delugia, ui-monospace'
     }
 })

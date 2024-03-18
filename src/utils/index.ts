@@ -43,7 +43,7 @@ export function initRemarkPluginFrontmatter(obj: object): PostsRemarkPluginFront
 }
 
 export function readFontsFile(name: string) {
-    return fs.readFile(`./public/fonts/${name}`)
+    return fs.readFile(`./src/fonts/${name}`)
 }
 
 export interface PostsRemarkPluginFrontmatter {
