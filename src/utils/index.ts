@@ -1,9 +1,11 @@
+import fs from 'fs/promises'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 
 export async function getPosts(filter?: (entry: CollectionEntry<'posts'>) => boolean) {
     return (await getCollection('posts', filter))
         .sort((a ,b) => Number(b.data.date) -  Number(a.data.date))
+        .filter(post => post.slug !== 'about')
 }
 
 export function genPagePaths(path: string, pageCount: number) {
@@ -39,6 +41,10 @@ export function initRemarkPluginFrontmatter(obj: object): PostsRemarkPluginFront
     }
 
     return Object.assign({}, defaultRemarkPluginFrontmatter, obj)
+}
+
+export function readFontsFile(name: string) {
+    return fs.readFile(`./src/fonts/${name}`)
 }
 
 export interface PostsRemarkPluginFrontmatter {
