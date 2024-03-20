@@ -1,12 +1,16 @@
 ---
+import { getEntry } from 'astro:content'
+
 import Box from '@components/box.astro'
 import Divider from '@components/divider.astro'
 import Layout from '@layouts/Layout.astro'
 import Head from '@components/head.astro'
 import DisqusJS from '@components/comment/disqus-js.astro'
 
-import * as about from '@data/about.md'
 import siteMetadata from '@data/siteMetadata.json'
+
+const post = await getEntry('posts', 'about')
+const { Content, remarkPluginFrontmatter: frontmatter } = await post.render()
 
 const { comment: { config: commentConfig } } = siteMetadata
 ---
@@ -19,17 +23,17 @@ const { comment: { config: commentConfig } } = siteMetadata
         <div class='xl:w-3xl lg:w-2xl md:w-xl w-full'>
             <Box>
                 <article class='p-6'>
-                    <h1 class='text-2xl font-bold font-mono text-center text-gray-600 mb-2'>{about.frontmatter.title}</h1>
+                    <h1 class='text-2xl font-bold font-mono text-center text-gray-600 mb-2'>{frontmatter.title}</h1>
                     <Divider />
                     <div class='heti m-auto pt-4 !max-w-2xl'>
-                        <about.Content />
+                        <Content />
                     </div>
                 </article>
             </Box>
             <Box className='mt-8 mb-8'>
                 <div class='p-2'> 
                     <DisqusJS
-                        title={about.frontmatter.title}
+                        title={frontmatter.title}
                         siteTitle={siteMetadata.title}
                         identifier='/post/about/'
                         shortname={commentConfig.shortname}

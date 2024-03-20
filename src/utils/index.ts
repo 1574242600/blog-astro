@@ -5,6 +5,7 @@ import type { CollectionEntry } from 'astro:content'
 export async function getPosts(filter?: (entry: CollectionEntry<'posts'>) => boolean) {
     return (await getCollection('posts', filter))
         .sort((a ,b) => Number(b.data.date) -  Number(a.data.date))
+        .filter(post => post.slug !== 'about')
 }
 
 export function genPagePaths(path: string, pageCount: number) {
