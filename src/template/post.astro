@@ -5,8 +5,8 @@ import Box from '@components/box.astro'
 import Divider from '@components/divider.astro'
 import Link from '@components/link.astro'
 import PostHeader from '@components/postHeader.astro'
-import Outdated from '@components/outdated'
-import { initRemarkPluginFrontmatter } from '@utils/index'
+import Outdated from '@components/outdated.astro'
+import { initRemarkPluginFrontmatter, toDays } from '@utils/index'
 
 import siteMetadata from '@data/siteMetadata.json'
 import DisqusJS from '@components/comment/disqus-js.astro'
@@ -32,7 +32,9 @@ interface Props {
                     frontmatter={frontmatter}
                 />
                 <Divider />
-                <Outdated lastUpdate={lastUpdate} client:only="solid"/>
+                { toDays(Date.now() - (new Date(lastUpdate)).getTime()) > 90 &&
+                    <Outdated lastUpdate={lastUpdate}/>
+                }
                 <div class='heti m-auto pt-4 !max-w-2xl'>
                     <Content />
                 </div>
