@@ -1,0 +1,31 @@
+---
+interface Props {
+    lastUpdate: string
+}
+
+const { lastUpdate } = Astro.props
+---
+
+<div id="outdated" class='h-15 m-4 p-4 bg-amber-100 rounded border-2 border-amber-500'>
+    <div class='text-amber-600 text-center'>本文最后更新于 <span data-last-update={lastUpdate}>N</span>  天前，文中所描述的信息可能已过时</div>
+</div>
+
+<script>
+export function toDays(ms: number) {
+    return Math.floor((ms / 1e3) / 86400)
+}
+
+const handler = () => {
+    const span: HTMLElement | null = document.querySelector('#outdated [data-last-update]')
+
+    if (span) {
+        const lastUpdate = span.dataset.lastUpdate || Date.now()
+        span.textContent = toDays(Date.now() - (new Date(lastUpdate)).getTime()) + ''
+    }
+}
+
+//todo 优化。  关联 disqus-js.astro
+handler()
+
+document.addEventListener('turbo:load', handler)
+</script>
