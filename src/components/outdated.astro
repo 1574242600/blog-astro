@@ -11,9 +11,7 @@ const { lastUpdate } = Astro.props
 </div>
 
 <script>
-export function toDays(ms: number) {
-    return Math.floor((ms / 1e3) / 86400)
-}
+import { addLoadEventListener, toDays } from '@utils/browser'
 
 const handler = () => {
     const span: HTMLElement | null = document.querySelector('#outdated [data-last-update]')
@@ -24,8 +22,5 @@ const handler = () => {
     }
 }
 
-//todo 优化。  关联 disqus-js.astro
-handler()
-
-document.addEventListener('turbo:load', handler)
+addLoadEventListener('outdated', handler)
 </script>

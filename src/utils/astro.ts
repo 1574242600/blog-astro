@@ -47,10 +47,6 @@ export function readFontsFile(name: string) {
     return fs.readFile(`./src/fonts/${name}`)
 }
 
-export function toDays(ms: number) {
-    return Math.floor((ms / 1e3) / 86400)
-}
-
 export interface PostsRemarkPluginFrontmatter {
     author: string
     title: string

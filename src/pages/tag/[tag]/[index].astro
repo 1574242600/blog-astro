@@ -3,7 +3,7 @@ import Index from '@template/index.astro'
 import Layout from '@layouts/Layout.astro'
 import Head from '@components/head.astro'
 
-import { getPosts, genPagePaths, getTags } from '@utils/index'
+import { getPosts, genPagePaths, getTags } from '@utils/astro'
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
 
@@ -50,4 +50,3 @@ interface StaticPath {
         pagePaths={pagePaths}
     />
 </Layout>
-

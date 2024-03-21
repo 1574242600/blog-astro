@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
-import { initRemarkPluginFrontmatter } from '@utils/index'
+import { initRemarkPluginFrontmatter } from '@utils/astro'
 
 import siteMetadata from '@data/siteMetadata.json'
 

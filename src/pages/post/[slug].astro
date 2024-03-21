@@ -5,7 +5,7 @@ import Post from '@template/post.astro'
 import Head from '@components/head.astro'
 import Layout from '@layouts/Layout.astro'
 import PostPageHead from '@components/postPageHead.astro'
-import { getPosts } from '@utils/index'
+import { getPosts } from '@utils/astro'
 
 import siteMetadata from '@data/siteMetadata.json'
 
@@ -35,4 +35,3 @@ export async function getStaticPaths() {
 <Layout pagePath='/post'>
     <Post post={post} />
 </Layout>
-

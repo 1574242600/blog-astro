@@ -6,7 +6,7 @@ import Index_ from '@template/index.astro'
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
 
-import { genPagePaths, getPosts } from '@utils/index'
+import { genPagePaths, getPosts } from '@utils/astro'
 
 const posts = await getPosts()
 const totalPage = Math.ceil(posts.length / config.itemsPerPage)
