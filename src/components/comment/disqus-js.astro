@@ -33,6 +33,7 @@ const {
 
 <script>
 import DisqusJS from 'disqusjs'
+import { addLoadEventListener } from '@utils/browser'
 
 const handler = () => {
     const div = document.getElementById('disqus-comment')
@@ -68,20 +69,5 @@ const handler = () => {
     }
 }
 
-
-//当直接访问有评论组件的页面时，需要避免重复加载
-let first = true
-if (!window.disqusjs && first) { 
-    //当从无评论组件的页面跳转到有评论组件的页面时，需要直接加载一次
-    handler() 
-}
-
-document.addEventListener('turbo:load', () => { 
-    if (first) { 
-        first = false
-        return
-    } 
-
-    handler()
-})
+addLoadEventListener('disqusjs', handler)
 </script>

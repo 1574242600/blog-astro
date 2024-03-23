@@ -59,7 +59,7 @@ const Item: Component<ItemProps> = (props) => {
             /// @ts-expect-error
             ref={li}
             class={
-                'h-10 leading-10 pl-2 cursor-pointer hover:bg-gray-50' +
+                'h-10 leading-10 cursor-pointer hover:bg-gray-50' +
                 textClass +
                 (active() ? activeClass : '')
             }

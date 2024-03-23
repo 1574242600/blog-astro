@@ -1,9 +1,9 @@
 ---
-import Index from '@template/index.astro'
+import IndexPage from '@template/index.astro'
 import Head from '@components/head.astro'
 import Layout from '@layouts/Layout.astro'
 
-import { getPosts, genPagePaths } from '@utils/index'
+import { getPosts, genPagePaths } from '@utils/astro'
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
 
@@ -28,11 +28,9 @@ export async function getStaticPaths() {
     <meta name="description" content={posts.map(post => post.data.title).join(' | ').slice(0, 50)} />
 </Head>
 <Layout pagePath='/'>
-    
-    <Index 
+    <IndexPage 
         currPage={currPage} 
         posts={posts}
         pagePaths={pagePaths}
     />
 </Layout>
-

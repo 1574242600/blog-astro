@@ -1,9 +1,9 @@
 ---
-import Index from '@template/index.astro'
+import IndexPage from '@template/index.astro'
 import Layout from '@layouts/Layout.astro'
 import Head from '@components/head.astro'
 
-import { getPosts, genPagePaths, getTags } from '@utils/index'
+import { getPosts, genPagePaths, getTags } from '@utils/astro'
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
 
@@ -43,11 +43,10 @@ interface StaticPath {
 </Head>
 <Layout pagePath='/'>
     
-    <Index 
+    <IndexPage 
         title={`标签：${tag}`}
         currPage={currPage} 
         posts={posts}
         pagePaths={pagePaths}
     />
 </Layout>
-
