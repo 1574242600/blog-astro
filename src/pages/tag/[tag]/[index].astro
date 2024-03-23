@@ -1,5 +1,5 @@
 ---
-import Index from '@template/index.astro'
+import IndexPage from '@template/index.astro'
 import Layout from '@layouts/Layout.astro'
 import Head from '@components/head.astro'
 
@@ -43,7 +43,7 @@ interface StaticPath {
 </Head>
 <Layout pagePath='/'>
     
-    <Index 
+    <IndexPage 
         title={`标签：${tag}`}
         currPage={currPage} 
         posts={posts}
