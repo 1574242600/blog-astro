@@ -4,9 +4,9 @@ interface Props {
     label?: string
 }
 
-const { href, label } = Astro.props;
+const { href, label = 'A link' } = Astro.props;
 ---
 
-<a class='hover:text-blue-500' aria-label={label ? label : 'A link'}  href={href} target='_blank' rel='noreferrer'>
+<a class='hover:text-blue-500' aria-label={label}  href={href} target='_blank' rel='noreferrer'>
     <slot />
 </a>
