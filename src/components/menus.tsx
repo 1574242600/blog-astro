@@ -38,8 +38,8 @@ const Menus: Component<MenusProps> = (props) => {
                                 /// @ts-expect-error todo 重构 Sidebar
                                 () => setTimeout(() => window.setXOffset(-256), 150)
                             }>
-                            <div class='w-3/4 ml-2'>
-                                <Svg id={m.svgId} class='w-5 h-5 mr-4 inline-block'/>
+                            <div>
+                                <Svg id={m.svgId} class='mr-6 inline-block'/>
                                 {m.name}
                             </div>
                         </a>
