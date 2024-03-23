@@ -32,14 +32,14 @@ const Menus: Component<MenusProps> = (props) => {
             <For each={props.data}>
                 {m => (
                     <Item key={m.path} >
-                        <a href={m.path} 
+                        <a href={m.path}
                             onClick={
                                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                                 /// @ts-expect-error todo 重构 Sidebar
                                 () => setTimeout(() => window.setXOffset(-256), 150)
                             }>
                             <div>
-                                <Svg id={m.svgId} class='mr-6 inline-block'/>
+                                <Svg id={m.svgId} class='w-4 h-4 mr-6 inline-block'/>
                                 {m.name}
                             </div>
                         </a>

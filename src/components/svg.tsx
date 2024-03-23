@@ -1,5 +1,5 @@
 /* eslint-disable solid/no-innerhtml */
-import { createSignal, onMount, Show } from 'solid-js'
+import { createSignal, onMount } from 'solid-js'
 import type { Component } from 'solid-js'
 
 export const Svg: Component<SvgProps> = (props) => {
@@ -15,12 +15,7 @@ export const Svg: Component<SvgProps> = (props) => {
 
     return (
         <>
-            <Show
-                when={svg().length > 0}
-            >
-
-                <div class={props.class + ' align-middle'} innerHTML={svg()} />
-            </Show>
+            <div class={props.class + ' align-middle'} innerHTML={svg()} />
         </>
     )
 }
