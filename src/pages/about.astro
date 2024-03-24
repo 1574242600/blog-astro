@@ -6,6 +6,7 @@ import Divider from '@components/divider.astro'
 import Layout from '@layouts/Layout.astro'
 import Head from '@components/head.astro'
 import DisqusJS from '@components/comment/disqus-js.astro'
+import CenterH from '@components/utils/centerH.astro'
 
 import siteMetadata from '@data/siteMetadata.json'
 
@@ -22,13 +23,11 @@ const {
     <meta name='description' content={'关于页面'} />
 </Head>
 <Layout pagePath='/about'>
-    <div class='w-full flex flex-row justify-center lg:mt-8'>
+    <CenterH className='lg:mt-8'>
         <div class='xl:w-3xl lg:w-2xl md:w-xl w-full'>
             <Box>
                 <article class='p-6'>
-                    <h1
-                        class='text-2xl font-bold font-mono text-center mb-2'
-                    >
+                    <h1 class='text-2xl font-bold font-mono text-center mb-2'>
                         {frontmatter.title}
                     </h1>
                     <Divider />
@@ -50,5 +49,5 @@ const {
                 </div>
             </Box>
         </div>
-    </div>
+    </CenterH>
 </Layout>

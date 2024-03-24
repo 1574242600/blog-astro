@@ -5,6 +5,7 @@ import Head from '@components/head.astro'
 import Box from '@components/box.astro'
 import Link from '@components/link.astro'
 import Layout from 'src/layouts/Layout.astro'
+import CenterH from '@components/utils/centerH.astro'
 
 import siteMetadata from '@data/siteMetadata.json'
 
@@ -47,7 +48,7 @@ type ByYear = Record<string, Array<{
     <meta name="description" content={'归档页面'} />
 </Head>
 <Layout pagePath='/archives'>
-    <div class={'w-full flex flex-row justify-center lg:mt-8'}>
+    <CenterH className='lg:mt-8'>
         <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full'>
             <div class='p-4'>
                 <ul>
@@ -71,5 +72,5 @@ type ByYear = Record<string, Array<{
                 </ul>
             </div>
         </Box>
-    </div>
+    </CenterH>
 </Layout>

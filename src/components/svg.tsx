@@ -15,14 +15,14 @@ export const Svg: Component<SvgProps> = (props) => {
 
     return (
         <>
-            <div class={props.class + ' align-middle'} innerHTML={svg()} />
+            <div class={props.className + ' align-middle'} innerHTML={svg()} />
         </>
     )
 }
 
 export interface SvgProps {
     id: string
-    class?: string
+    className?: string
 }
 
 export default Svg

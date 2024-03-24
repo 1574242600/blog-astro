@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content'
 
 import PostItem from '@components/postItem.astro'
 import Pagination from '@components/pagination'
+import CenterH from '@components/utils/centerH.astro'
 
 import { initRemarkPluginFrontmatter } from '@utils/astro'
 
@@ -42,12 +43,12 @@ interface Props {
                 )
 
                 return (
-                    <div class='w-full flex flex-row justify-center'>
+                    <CenterH>
                         <PostItem
                             frontmatter={frontmatter}
                             path={`/post/${post.slug}`}
                         />
-                    </div>
+                    </CenterH>
                 )
             })
         }
