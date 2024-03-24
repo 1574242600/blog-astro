@@ -7,7 +7,7 @@
   --box-bg-color: #f3f4f6;                /* gray-100 */
   --sidebar-bg-color: #f3f4f6;            /* gray-100 */
 
-  --primary-text-color: #4b5563;          /* gray-600 todo 全局应用*/
+  --primary-text-color: #4b5563;          /* gray-600 */
   --accent-text-color: #1f2937;           /* gray-800 */
   --minor-text-color: #6b7280;            /* gray-500 */
 
@@ -38,4 +38,8 @@
   --post-footer-bg-color: #7dd3fc;        /* text-sky-300 */
 
   --heti-primary-text-color: #333 ;
+}
+
+#root {
+  color: var(--primary-text-color);
 }

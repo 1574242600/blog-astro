@@ -21,7 +21,7 @@ const PageNumber: Component<PageNumberProps> = (props) => {
     return (
         <a 
             class={
-                'h-8 w-8 pt-1 border border-[--minor-color] text-[--primary-text-color] text-center cursor-pointer' 
+                'h-8 w-8 pt-1 border border-[--minor-color] text-center cursor-pointer' 
                 + hoverClass
                 + (merged.active ? activeClass : '')
                 + merged.className

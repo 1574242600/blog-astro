@@ -38,7 +38,7 @@ const Item: Component<ItemProps> = (props) => {
     let li: HTMLLIElement
 
     const activeClass = ' border-r-4 border-[--menu-active-border-color] bg-[--menu-active-bg-color]'
-    const textClass = ' font-mono font-medium text-md text-center text-[--primary-text-color] hover:text-[--menu-hover-text-color]'
+    const textClass = ' font-mono font-medium text-md text-center hover:text-[--menu-hover-text-color]'
 
     onMount(() => {
         li.setAttribute('data-key', props.key)
