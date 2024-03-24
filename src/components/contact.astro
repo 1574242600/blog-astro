@@ -2,7 +2,6 @@
 import Svg from './svg'
 import Link from './link.astro'
 
-
 /*const Contacts: React.FC<ContactsProps> = ({ contacts }) => {
     return (
         <div className='flex justify-center space-x-4 h-8 w-full'>
@@ -23,11 +22,14 @@ interface Props {
 
 const { name, id, url } = Astro.props
 const href = url.replace(/\{id\}/, id)
-
 ---
 
 <div title={name}>
-    <Link href={href} label={name} >
-        <Svg id={name} class='w-6 h-6 text-2xl text-gray-600 hover:text-sky-400' client:only="solid"/>
+    <Link href={href} label={name}>
+        <Svg
+            id={name}
+            class='w-6 h-6 text-2xl text-[--contact-icon-color] hover:text-[--contact-hover-icon-color]'
+            client:only='solid'
+        />
     </Link>
 </div>

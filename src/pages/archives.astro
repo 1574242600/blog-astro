@@ -54,16 +54,15 @@ type ByYear = Record<string, Array<{
                     {
                         yearIndex.map((year) => (
                             <li>
-                                <h3 class='text-2xl font-bold font-mono text-gray-600'>{ year }</h3>
+                                <h3 class='text-2xl font-bold font-mono text-[--primary-text-color]'>{ year }</h3>
                                 <ul class='list-disc ml-8'>
                                     { byYear[year].map((post) => {
                                         const { data, slug } = post
                                         
-                                        return <li class='mt-1 space-x-2 border-b-2 border-dashed border-gray-300 hover:text-blue-500'>
+                                        return <li class='mt-1 space-x-2 border-b-2 border-dashed border-[--divider-color] hover:text-[--link-hover-text-color]'>
                                             <time datetime={ data.date.toISOString() }>{ dateToString(new Date(data.date)) }</time>
                                             <Link href={`/post/${slug}`}>{ data.title }</Link>
                                         </li>
-                                        
                                     })}
                                 </ul>
                             </li>

@@ -1,0 +1,41 @@
+#root[data-theme="yoshino"] {
+  --primary-color: #4ade80;               /* green-400 */
+  --accent-color: #22c55e;                /* green-500 */
+  --minor-color: #d1d5db;                 /* gray-300 */
+
+  --root-bg-color: #e5e7eb;               /* gray-200 */
+  --box-bg-color: #f3f4f6;                /* gray-100 */
+  --sidebar-bg-color: #f3f4f6;            /* gray-100 */
+
+  --primary-text-color: #4b5563;          /* gray-600 todo 全局应用*/
+  --accent-text-color: #1f2937;           /* gray-800 */
+  --minor-text-color: #6b7280;            /* gray-500 */
+
+  --link-hover-text-color: #0ea5e9;       /* sky-400 */
+
+  --button-text-color: #f3f4f6;           /* gray-100 */
+  --button-bg-color: #38bdf8;             /* sky-400 */
+  --button-hover-bg-color: #0ea5e9;       /* sky-500 */
+
+  --menu-active-border-color: #22c55e;    /* green-500 */
+  --menu-active-bg-color: #dcfce7;        /* green-100 */
+  --menu-hover-text-color: #22c55e;       /* green-500 */
+  --menu-hover-bg-color: #f9fafb;         /* gray-50 */
+ 
+  --friend-card-hover-bg-color: #e5e7eb;  /* gray-200 */
+
+  --contact-icon-color: #4b5563;          /* text-gray-600 */
+  --contact-hover-icon-color: #38bdf8;    /* text-sky-400 */
+
+  --divider-color: #d1d5db;               /* gray-300 */
+
+  --sidebar-bg-color: #f3f4f6;            /* gray-100 */
+
+  --outdated-bg-color: #fef3c7;           /* bg-amber-100 */
+  --outdated-border-color: #f59e0b;       /* bg-amber-500 */
+  --outdated-text-color: #d97706;         /* bg-amber-600 */
+
+  --post-footer-bg-color: #7dd3fc;        /* text-sky-300 */
+
+  --heti-primary-text-color: #333 ;
+}

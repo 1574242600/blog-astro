@@ -13,8 +13,12 @@ import siteMetadata from '@data/siteMetadata.json'
 import DisqusJS from '@components/comment/disqus-js.astro'
 
 const { post } = Astro.props
-const { siteUrl, comment: { config: commentConfig } } = siteMetadata
-const { remarkPluginFrontmatter, Content }= await post.render()
+const {
+    siteUrl,
+    comment: { config: commentConfig },
+} = siteMetadata
+
+const { remarkPluginFrontmatter, Content } = await post.render()
 const frontmatter = initRemarkPluginFrontmatter(remarkPluginFrontmatter)
 
 const postUrl = `${siteUrl}/post/${post.slug}`
@@ -25,25 +29,34 @@ interface Props {
 }
 //todo 代码块(语言名称 复制粘贴)  图片优化(懒加载 图片尺寸 图片缩略)
 ---
+
 <div class='w-full flex flex-row justify-center lg:mt-8'>
     <div class='xl:w-3xl lg:w-2xl md:w-xl w-full'>
         <Box>
             <article class='p-6'>
-                <PostHeader
-                    frontmatter={frontmatter}
-                />
+                <PostHeader frontmatter={frontmatter} />
                 <Divider />
-                { toDays(Date.now() - (new Date(lastUpdate)).getTime()) > 90 &&
-                    <Outdated lastUpdate={lastUpdate}/>
+                {
+                    toDays(Date.now() - new Date(lastUpdate).getTime()) >
+                        90 && <Outdated lastUpdate={lastUpdate} />
                 }
                 <div class='heti m-auto pt-4 !max-w-2xl'>
                     <Content />
                 </div>
             </article>
-            <div class='bg-sky-300 mt-8 p-2 text-xs font-medium text-gray-600'>
+            <div
+                class='bg-[--post-footer-bg-color] mt-8 p-2 text-xs font-medium text-[--primary-text-color]'
+            >
                 <div>作者：{frontmatter.author}</div>
                 <div>本文链接：<Link href={postUrl}>{postUrl}</Link></div>
-                <div>许可协议：<Link href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans'>CC BY-NC-SA 4.0 Deed</Link></div>
+                <div>
+                    许可协议：
+                    <Link
+                        href='https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans'
+                    >
+                        CC BY-NC-SA 4.0 Deed
+                    </Link>
+                </div>
             </div>
         </Box>
         <Box className='mt-8 mb-8'>

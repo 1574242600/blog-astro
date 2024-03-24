@@ -1,5 +1,5 @@
 ---
-function dateToString (time: Date): string {
+function dateToString(time: Date): string {
     const y = time.getFullYear()
     const m = time.getMonth() + 1
     const d = time.getDate()
@@ -18,28 +18,52 @@ interface Props {
 }
 
 const { frontmatter, titleLevel } = Astro.props
-const tags =  frontmatter.tags || []
+const tags = frontmatter.tags || []
 
 const dateStr = dateToString(new Date(frontmatter.date))
-const updateStr = frontmatter.update ? dateToString(new Date(frontmatter.update)) : ''
+const updateStr = frontmatter.update
+    ? dateToString(new Date(frontmatter.update))
+    : ''
 
-const H = 'h' + (titleLevel || 1)  as 'h1' //h*
+const H = ('h' + (titleLevel || 1)) as 'h1' //h*
 ---
 
 <div class='mb-4'>
-    <H class='text-2xl font-bold font-mono text-center text-gray-600'>{frontmatter.title}</H>
-    <div class='mt-2 text-xs text-center space-x-2 text-gray-500'>
-        <span>发表于: {dateStr}</span> <span>|</span>
-        { updateStr && <span>更新于: {updateStr}</span> <span>|</span> }
-        <span>预计阅读时长: {frontmatter.minutesRead} 分钟</span> <span>|</span>
-        <span>标签: {
-            tags.length > 0
-                ? tags.map((tag, index) => 
-                    <Fragment>
-                        <a class='hover:text-blue-500' href={`/tag/${tag.toLowerCase()}/1`}>{ tag }</a> 
-                        { tags[index + 1] === undefined ? '' : ', ' } 
-                    </Fragment>)
-                : 'null'
-        }</span>
+    <H
+        class='text-2xl font-bold font-mono text-center text-[--primary-text-color]'
+    >
+        {frontmatter.title}
+    </H>
+
+    <div class='mt-2 text-xs text-center space-x-2 text-[--minor-text-color]'>
+        <span>发表于: {dateStr}</span>
+        <span>|</span>
+        {
+            updateStr && (
+                <>
+                    <span>更新于: {updateStr}</span>
+                    <span>|</span>
+                </>
+            )
+        }
+        <span>预计阅读时长: {frontmatter.minutesRead} 分钟</span>
+        <span>|</span>
+        <span>
+            标签: {
+                tags.length > 0
+                    ? tags.map((tag, index) => (
+                        <Fragment>
+                            <a
+                                class='hover:text-[--link-hover-text-color]'
+                                href={`/tag/${tag.toLowerCase()}/1`}
+                            >
+                                {tag}
+                            </a>
+                            {tags[index + 1] === undefined ? '' : ', '}
+                        </Fragment>
+                    ))
+                    : 'null'
+            }
+        </span>
     </div>
 </div>
