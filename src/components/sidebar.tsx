@@ -58,7 +58,7 @@ const Sidebar: Component<SidebarProps> = (props) => {
         <div>
             <div
                 class={
-                    'h-full w-64' + lgClass + lgMClass + ' bg-[--sidebar-bg-color] shadow'
+                    'h-full w-64' + lgClass + lgMClass + ' bg-[--primary-bg-color] shadow'
                 }
                 style={{
                     left: `${xOffset()}px`,
