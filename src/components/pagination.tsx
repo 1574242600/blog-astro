@@ -15,13 +15,13 @@ export const Pagination: Component<PaginationProps> = (props) => {
 
 const PageNumber: Component<PageNumberProps> = (props) => {
     const merged = mergeProps({ pagePath: '', test: null, active: false, className: ''}, props)
-    const activeClass = ' border-[--primary-color] text-[--accent-color]'
+    const activeClass = ' !border-[--primary-color] text-[--accent-color]'
     const hoverClass = ' hover:border-[--primary-color] hover:text-[--accent-color]'
 
     return (
         <a 
             class={
-                'h-8 w-8 pt-1 border border-[--minor-color] text-center cursor-pointer' 
+                'h-8 w-8 pt-1 border border-[--divider-color] bg-[--primary-bg-color] text-center shadow cursor-pointer ' 
                 + hoverClass
                 + (merged.active ? activeClass : '')
                 + merged.className
