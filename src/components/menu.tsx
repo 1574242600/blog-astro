@@ -37,8 +37,8 @@ const Item: Component<ItemProps> = (props) => {
     const [active, setActive] = createSignal(false)
     let li: HTMLLIElement
 
-    const activeClass = ' border-r-4 border-green-500 bg-green-100'
-    const textClass = ' font-mono font-medium text-md text-center text-gray-600 hover:text-green-500'
+    const activeClass = ' border-r-4 border-[--accent-color] bg-[--minor-color]'
+    const textClass = ' font-mono font-medium text-md text-center hover:text-[--accent-color]'
 
     onMount(() => {
         li.setAttribute('data-key', props.key)
@@ -59,7 +59,7 @@ const Item: Component<ItemProps> = (props) => {
             /// @ts-expect-error
             ref={li}
             class={
-                'h-10 leading-10 cursor-pointer hover:bg-gray-50' +
+                'h-10 leading-10 cursor-pointer hover:bg-[--accent-bg-color]' +
                 textClass +
                 (active() ? activeClass : '')
             }

@@ -11,43 +11,53 @@ import Menus from '@components/menus'
 
 import siteMetadata from '@data/siteMetadata.json'
 import menu from '@data/menu.json'
+import { defaultTheme } from '@data/config.json'
 
 const { pagePath } = Astro.props
 const { title, contacts } = siteMetadata
-const defaultActiveKey = (pagePath.at(-1) === '/' ? pagePath.slice(0, -1) : pagePath) || '/'
+const defaultActiveKey =
+    (pagePath.at(-1) === '/' ? pagePath.slice(0, -1) : pagePath) || '/'
 
 interface Props {
     pagePath: string
 }
 
-//侧边栏
+//todob 主题
 ---
-<div>
+
+<div id='root' data-theme={defaultTheme}>
     <Background />
     <div class='max-w-6xl mx-auto h-screen overflow-hidden'>
-        <div id="sidebar" data-turbo-permanent>
-            <Sidebar client:only="solid">
-                <div class='flex justify-center flex-col h-36 p-1 bg-green-400'>
-                    <div class='text-center text-4xl first-line:font-mono font-black text-gray-600'>{title}</div>
+        <div id='sidebar' data-turbo-permanent>
+            <Sidebar client:only='solid'>
+                <div
+                    class='flex justify-center flex-col h-36 p-1 bg-[--primary-color]'
+                >
+                    <div
+                        class='text-center text-4xl first-line:font-mono font-black'
+                    >
+                        {title}
+                    </div>
                 </div>
-                <Divider />
                 <Menus
                     defaultActiveKey={defaultActiveKey}
                     data={menu}
-                    client:only="solid"
+                    client:only='solid'
                 />
                 <div class='absolute bottom-0 w-full'>
                     <div class='flex justify-center space-x-4 h-8 w-full'>
                         {
-                            contacts.map((data) => <Contact 
-                                id={data.id}
-                                name={data.name}
-                                url={data.url}
-                            />)
+                            contacts.map(data => (
+                                <Contact
+                                    id={data.id}
+                                    name={data.name}
+                                    url={data.url}
+                                />
+                            ))
                         }
                     </div>
                     <Divider />
-                    <Footer 
+                    <Footer
                         title={siteMetadata.title}
                         author={siteMetadata.author}
                         since={siteMetadata.since}
@@ -60,7 +70,7 @@ interface Props {
 </div>
 
 <script>
-import * as Turbo from '@hotwired/turbo'
-Turbo.start()
-//todo 过渡
+    import * as Turbo from '@hotwired/turbo'
+    Turbo.start()
+    //todo 过渡
 </script>

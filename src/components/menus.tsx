@@ -39,7 +39,7 @@ const Menus: Component<MenusProps> = (props) => {
                                 () => setTimeout(() => window.setXOffset(-256), 150)
                             }>
                             <div>
-                                <Svg id={m.svgId} class='w-4 h-4 mr-6 inline-block'/>
+                                <Svg id={m.svgId} className='w-4 h-4 mr-6 inline-block'/>
                                 {m.name}
                             </div>
                         </a>

@@ -10,17 +10,11 @@ interface Props {
     apiKey: string
 }
 
-const { 
-    title, 
-    identifier, 
-    shortname, 
-    siteTitle, 
-    api, 
-    apiKey, 
-} = Astro.props
+const { title, identifier, shortname, siteTitle, api, apiKey } = Astro.props
 ---
-<div 
-    id="disqus-comment" 
+
+<div
+    id='disqus-comment'
     data-title={title}
     data-site-title={siteTitle}
     data-id={identifier}
@@ -28,46 +22,51 @@ const {
     data-api={api}
     data-apikey={apiKey}
 >
-    <div class="animate-pulse font-medium text-gray-600">加载中...</div>
+    <div class='animate-pulse font-medium'>
+        加载中...
+    </div>
 </div>
 
 <script>
-import DisqusJS from 'disqusjs'
-import { addLoadEventListener } from '@utils/browser'
+    import DisqusJS from 'disqusjs'
+    import { addLoadEventListener } from '@utils/browser'
 
-const handler = () => {
-    const div = document.getElementById('disqus-comment')
+    const handler = () => {
+        const div = document.getElementById('disqus-comment')
 
-    if (div) {
-        const { title, id, shortname, siteTitle, api, apikey } = div.dataset
-        if (window.disqusjs) window.disqusjs.destroy()
+        if (div) {
+            const { title, id, shortname, siteTitle, api, apikey } = div.dataset
+            if (window.disqusjs) window.disqusjs.destroy()
 
-        window.disqusjs = new DisqusJS({
-            shortname: shortname as string,
-            siteName: siteTitle,
-            identifier: id,
-            title: title,
-            url: location.href,
-            api: api,
-            apikey: apikey as string
-        })
+            window.disqusjs = new DisqusJS({
+                shortname: shortname as string,
+                siteName: siteTitle,
+                identifier: id,
+                title: title,
+                url: location.href,
+                api: api,
+                apikey: apikey as string,
+            })
 
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                requestIdleCallback(() => {
-                    div.innerHTML = ''
-                    window.disqusjs?.render(div)
-                })
-                observer.disconnect()
-            }
-        }, { 
-            root: document.getElementById('body'),
-            threshold: 0.5
-        })
+            const observer = new IntersectionObserver(
+                entries => {
+                    if (entries[0].isIntersecting) {
+                        requestIdleCallback(() => {
+                            div.innerHTML = ''
+                            window.disqusjs?.render(div)
+                        })
+                        observer.disconnect()
+                    }
+                },
+                {
+                    root: document.getElementById('body'),
+                    threshold: 0.5,
+                },
+            )
 
-        observer.observe(div)
+            observer.observe(div)
+        }
     }
-}
 
-addLoadEventListener('disqusjs', handler)
+    addLoadEventListener('disqusjs', handler)
 </script>
