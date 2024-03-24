@@ -16,7 +16,10 @@ export async function GET() {
             pubDate: post.data.date,
             description: initRemarkPluginFrontmatter((await post.render()).remarkPluginFrontmatter).excerpt.text,
             link: `/post/${post.slug}/`,
+            categories: post.data.tags
         }))),
-        customData: '<language>zh-CN</language>',
+        customData: '<language>zh-CN</language>' + 
+                    `<lastBuildDate>${(new Date()).toUTCString()}</lastBuildDate>`
+        ,
     })
 }
