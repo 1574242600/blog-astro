@@ -22,7 +22,19 @@
   --outdated-border-color: #f59e0b;       /* bg-amber-500 */
   --outdated-text-color: #d97706;         /* bg-amber-600 */
 
+
+
   --heti-primary-text-color: #333 ;
+  --heti-blockquote-bg-color: #1098ad33;
+  --heti-blockquote-border-color: var(--second-primary-color);
+  --heti-hr-bg-color: var(--divider-color);
+  --heti-code-text-color: #47769a;
+  --heti-title-border-color: var(--primary-color);
+  --heti-title-text-color: var(--primary-text-color);
+  --heti-td-border-color: #aaa;
+  --heti-link-text-color: var(--second-primary-color);
+  --heti-link-hover-text-color: var(--second-accent-color);
+  --heti-mark-bg-color: #fff700e0;
 }
 
 #root {
