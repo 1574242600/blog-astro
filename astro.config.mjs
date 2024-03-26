@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config'
 import solid from '@astrojs/solid-js'
 import tailwind from '@astrojs/tailwind'
-import { remarkReadingTime, copyImageToLocal } from './src/plugin/remark.mjs'
+import { remarkReadingTime } from './src/plugin/remark.mjs'
 import rehypeExcerpt from 'astro-rehype-excerpt'
 import sitemap from '@astrojs/sitemap'
 import siteMetadata from './src/data/siteMetadata.json'
@@ -13,15 +13,7 @@ export default defineConfig({
     markdown: {
         syntaxHighlight: false,
         remarkPlugins: [
-            remarkReadingTime, 
-            [
-                copyImageToLocal,
-                {
-                    domains: ['nworm.icu', 'img.nworm.icu'],
-                    toPath: './cache',
-                    mdPath: '../../../cache'
-                }
-            ]
+            remarkReadingTime
         ],
         rehypePlugins: [rehypeExcerpt]
     },
