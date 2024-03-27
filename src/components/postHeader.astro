@@ -1,10 +1,5 @@
 ---
-function dateToString(time: Date): string {
-    const y = time.getFullYear()
-    const m = time.getMonth() + 1
-    const d = time.getDate()
-    return `${y}-${m}-${d}`
-}
+import { dateToString } from '@utils/browser'
 
 interface Props {
     titleLevel?: number
