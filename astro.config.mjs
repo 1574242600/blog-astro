@@ -6,10 +6,21 @@ import rehypeExcerpt from 'astro-rehype-excerpt'
 import sitemap from '@astrojs/sitemap'
 import siteMetadata from './src/data/siteMetadata.json'
 import expressiveCode from 'astro-expressive-code'
+import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 
 export default defineConfig({
     site: siteMetadata.siteUrl,
-    integrations: [tailwind(), solid(), sitemap(), expressiveCode()],
+    integrations: [
+        tailwind(), 
+        solid(), 
+        sitemap(), 
+        expressiveCode({
+            plugins: [pluginLineNumbers()],
+            defaultProps: { 
+                showLineNumbers: false
+            }
+        })
+    ],
     markdown: {
         syntaxHighlight: false,
         remarkPlugins: [
