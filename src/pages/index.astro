@@ -1,7 +1,7 @@
 ---
 import Head from '@components/head.astro'
 import Layout from '@layouts/Layout.astro'
-import Index_ from '@template/index.astro'
+import IndexPage from '@template/index.astro'
 
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
@@ -12,16 +12,16 @@ const posts = await getPosts()
 const totalPage = Math.ceil(posts.length / config.itemsPerPage)
 const pagePaths = genPagePaths('/page/', totalPage)
 pagePaths[0] = '/'
-
 ---
+
 <Head>
     <title>{siteMetadata.title}</title>
-    <meta name="description" content={siteMetadata.description} />
+    <meta name='description' content={siteMetadata.description} />
 </Head>
 <Layout pagePath='/'>
-    <Index_ 
+    <IndexPage 
         currPage={1} 
         posts={posts} 
-        pagePaths={pagePaths}
+        pagePaths={pagePaths} 
     />
 </Layout>

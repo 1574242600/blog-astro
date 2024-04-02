@@ -58,9 +58,6 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.21.0
     version: 6.21.0(eslint@8.57.0)(typescript@5.4.3)
-  astro-rehype-excerpt:
-    specifier: github:1574242600/astro-rehype-excerpt
-    version: github.com/1574242600/astro-rehype-excerpt/543a43f5315c9c8caff4f253ecd7aaf66512039a
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -6922,13 +6919,3 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
-
-  github.com/1574242600/astro-rehype-excerpt/543a43f5315c9c8caff4f253ecd7aaf66512039a:
-    resolution: {tarball: https://codeload.github.com/1574242600/astro-rehype-excerpt/tar.gz/543a43f5315c9c8caff4f253ecd7aaf66512039a}
-    name: astro-rehype-excerpt
-    version: 0.0.1
-    dependencies:
-      rehype-stringify: 10.0.0
-      unified: 11.0.4
-      unist-util-visit: 5.0.0
-    dev: true

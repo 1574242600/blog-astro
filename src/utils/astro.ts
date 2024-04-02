@@ -1,6 +1,7 @@
 import fs from 'fs/promises'
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
+import type { MarkdownInstance } from 'astro'
 
 export async function getPosts(filter?: (entry: CollectionEntry<'posts'>) => boolean) {
     return (await getCollection('posts', filter))
@@ -45,6 +46,25 @@ export function initRemarkPluginFrontmatter(obj: object): PostsRemarkPluginFront
 
 export function readFontsFile(name: string) {
     return fs.readFile(`./src/fonts/${name}`)
+}
+
+export function createPostExcerptService(posts: MarkdownInstance<Record<string, unknown>>[], excerpt: string) {
+    return (id: string) => {
+        const post = posts.find(p => p.file.endsWith(id))
+        if (!post) throw new Error(`PostExcerptService: 未找到 ${id}`)
+        const fullHtml = post.compiledContent()
+        const excerptHtml = fullHtml.split(excerpt)[0] ?? fullHtml
+        const excerptText = excerptHtml
+            .replace(/<(\S*?)[^>]*>.*?|<.*? \/>/g, ' ')
+            .replace(/\n/g, '')
+            .replace(/\s+/g, ' ')
+            .trim()
+
+        return {
+            html: excerptHtml,
+            text: excerptText
+        }
+    }
 }
 
 export interface PostsRemarkPluginFrontmatter {
