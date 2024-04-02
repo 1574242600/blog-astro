@@ -5,12 +5,13 @@ import PostItem from '@components/postItem.astro'
 import Pagination from '@components/pagination'
 import CenterH from '@components/utils/centerH.astro'
 
-import { initRemarkPluginFrontmatter } from '@utils/astro'
+import { initRemarkPluginFrontmatter, createPostExcerptService } from '@utils/astro'
 
 import config from '@data/config.json'
 
 const { itemsPerPage } = config
 const { currPage, posts, pagePaths, title } = Astro.props
+const getPostExcerpt = createPostExcerptService(await Astro.glob('../content/posts/*.md'), '<!--more-->')
 const index = Number(currPage)
 
 const currPageItems = posts.slice(
@@ -38,9 +39,8 @@ interface Props {
         {
             currPageItems.map(async post => {
                 const { remarkPluginFrontmatter } = await post.render()
-                const frontmatter = initRemarkPluginFrontmatter(
-                    remarkPluginFrontmatter,
-                )
+                remarkPluginFrontmatter.excerpt = getPostExcerpt(post.id)
+                const frontmatter = initRemarkPluginFrontmatter(remarkPluginFrontmatter)
 
                 return (
                     <CenterH>

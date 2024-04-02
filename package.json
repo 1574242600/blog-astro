@@ -35,7 +35,6 @@
     "@types/throttle-debounce": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "astro-rehype-excerpt": "github:1574242600/astro-rehype-excerpt",
     "eslint": "^8.57.0",
     "eslint-plugin-astro": "^0.31.4",
     "eslint-plugin-jsx-a11y": "^6.8.0",
