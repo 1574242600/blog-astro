@@ -307,9 +307,14 @@
     margin-block-start: 24px;
     margin-block-end: 12px;
     font-weight: 600;
-    border-left: 4px solid var(--heti-title-border-color);
-    padding-left: 32px;
     color: var(--heti-title-text-color);
+}
+
+.heti h1,
+.heti h2,
+.heti h3 {
+    padding-left: 32px;
+    border-left: 4px solid var(--heti-title-border-color);
 }
 
 .heti h1 {
