@@ -17,8 +17,7 @@ handleMd() {
 main() {
     get_data
     handleMd
-
-    pnpm install https://github.com/1574242600/astro-rehype-excerpt
+    
     pnpm run build
 }
 
