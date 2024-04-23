@@ -1,15 +1,11 @@
 ---
+import { type PostFrontmatter } from '@service/postService'
 import { dateToString } from '@utils/browser'
+
 
 interface Props {
     titleLevel?: number
-    frontmatter: {
-        title: string
-        tags?: string[]
-        date: string
-        update?: string
-        minutesRead: number
-    }
+    frontmatter: PostFrontmatter
 }
 
 const { frontmatter, titleLevel } = Astro.props

@@ -3,17 +3,10 @@ import PostHeader from './postHeader.astro'
 import Divider from './divider.astro'
 import Box from './box.astro'
 
+import { type PostFrontmatter } from '@service/postService'
+
 interface Props {
-    frontmatter: {
-        update?: string
-        title: string
-        tags?: string[]
-        date: string
-        minutesRead: number
-        excerpt: {
-            html: string
-        }
-    }
+    frontmatter: PostFrontmatter
     path: string
 }
 

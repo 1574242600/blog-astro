@@ -6,9 +6,12 @@ import IndexPage from '@template/index.astro'
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
 
-import { genPagePaths, getPosts } from '@utils/astro'
+import { genPagePaths } from '@utils/astro'
+import PostService from '@service/postService'
 
-const posts = await getPosts()
+const ps = await PostService.init()
+const posts = ps.getPosts()
+
 const totalPage = Math.ceil(posts.length / config.itemsPerPage)
 const pagePaths = genPagePaths('/page/', totalPage)
 pagePaths[0] = '/'

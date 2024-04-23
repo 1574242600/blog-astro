@@ -1,6 +1,4 @@
 ---
-import { getEntry } from 'astro:content'
-
 import Box from '@components/box.astro'
 import Divider from '@components/divider.astro'
 import Layout from '@layouts/Layout.astro'
@@ -9,9 +7,10 @@ import DisqusJS from '@components/comment/disqus-js.astro'
 import CenterH from '@components/utils/centerH.astro'
 
 import siteMetadata from '@data/siteMetadata.json'
+import PostService from '@service/postService'
 
-const post = await getEntry('posts', 'about')
-const { Content, remarkPluginFrontmatter: frontmatter } = await post.render()
+const ps = await PostService.init()
+const { frontmatter, Content } = ps.getPost('about')
 
 const {
     comment: { config: commentConfig },

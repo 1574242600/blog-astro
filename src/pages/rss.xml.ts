@@ -1,23 +1,22 @@
 import rss from '@astrojs/rss'
-import { getCollection } from 'astro:content'
-import { initRemarkPluginFrontmatter } from '@utils/astro'
-
+import PostService from '@service/postService'
 import siteMetadata from '@data/siteMetadata.json'
 
 export async function GET() {
-    const posts = await getCollection('posts')
+    const ps = await PostService.init()
+    const posts = ps.getPosts()
 
     return rss({
         title: siteMetadata.title,  
         description: siteMetadata.description,
         site: siteMetadata.siteUrl,
-        items: await Promise.all(posts.map(async post => ({
-            title: post.data.title,
-            pubDate: post.data.date,
-            description: initRemarkPluginFrontmatter((await post.render()).remarkPluginFrontmatter).excerpt.text,
-            link: `/post/${post.slug}/`,
-            categories: post.data.tags
-        }))),
+        items: posts.map(post => ({
+            title: post.frontmatter.title,
+            pubDate: post.frontmatter.date,
+            description: post.frontmatter.excerpt.text,
+            link: `/post/${post.frontmatter.slug}/`,
+            categories: post.frontmatter.tags
+        })),
         customData: '<language>zh-CN</language>' + 
                     `<lastBuildDate>${(new Date()).toUTCString()}</lastBuildDate>`
         ,

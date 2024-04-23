@@ -2,21 +2,25 @@
 import IndexPage from '@template/index.astro'
 import Head from '@components/head.astro'
 import Layout from '@layouts/Layout.astro'
-
-import { getPosts, genPagePaths } from '@utils/astro'
 import siteMetadata from '@data/siteMetadata.json'
 import config from '@data/config.json'
+import PostService from '@service/postService'
+import { genPagePaths } from '@utils/astro'
 
 const currPage = Number(Astro.params.index)
-const posts = await getPosts()
+
+const ps = await PostService.init()
+const posts = ps.getPosts()
 
 const totalPage = Math.ceil(posts.length / config.itemsPerPage)
 const pagePaths = genPagePaths('/page/', totalPage)
 pagePaths[0] = '/'
 
 export async function getStaticPaths() {
-    const allBlogPosts = await getPosts()
-    const totalPage = Math.ceil(allBlogPosts.length / config.itemsPerPage)
+    const ps = await PostService.init()
+    const posts = ps.getPosts()
+
+    const totalPage = Math.ceil(posts.length / config.itemsPerPage)
 
     return Array(totalPage)
         .fill(0)
@@ -25,7 +29,9 @@ export async function getStaticPaths() {
 ---
 <Head>
     <title>第 {currPage} 页 {' | '}{siteMetadata.title}</title>
-    <meta name="description" content={posts.map(post => post.data.title).join(' | ').slice(0, 50)} />
+    <meta name="description" content={
+        posts.map(post => post.frontmatter.title).join(' | ').slice(0, 50)} 
+    />
 </Head>
 <Layout pagePath='/'>
     <IndexPage 

@@ -1,6 +1,4 @@
 ---
-import { getPosts } from '@utils/astro'
-
 import Head from '@components/head.astro'
 import Box from '@components/box.astro'
 import Link from '@components/link.astro'
@@ -8,15 +6,20 @@ import Layout from 'src/layouts/Layout.astro'
 import CenterH from '@components/utils/centerH.astro'
 
 import siteMetadata from '@data/siteMetadata.json'
+import PostService, { type PostInstance } from '@service/postService'
 
-const allBlogPosts = await getPosts()
-const byYear = toByYear(allBlogPosts)
+const ps = await PostService.init()
+const posts = ps.getPosts()
+
+const byYear = toByYear(posts)
 const yearIndex = Object.keys(byYear).reverse()
 
 
-function toByYear(posts: Awaited<ReturnType<typeof getPosts>>) {
+function toByYear(posts: PostInstance[]) {
+    type ByYear = Record<string, PostInstance[]>
+
     return posts.reduce<ByYear>((result, post) => {
-        const date = new Date(post.data.date)
+        const date = new Date(post.frontmatter.date)
         const year = date.getFullYear()
 
         if (result[year] === undefined) result[year] = []
@@ -29,19 +32,6 @@ function toByYear(posts: Awaited<ReturnType<typeof getPosts>>) {
 function dateToString (date: Date): string {
     return `${date.getMonth() + 1}-${date.getDate()}`
 }
-
-type ByYear = Record<string, Array<{
-    id: string
-    slug: string
-    body: string
-    collection: string
-    data: {
-        title: string
-        author: string
-        date: Date
-        update?: Date | undefined
-        tags?: string[] | undefined
-    }}>>
 ---
 <Head>
     <title>归档{' | '}{siteMetadata.title}</title>
@@ -58,12 +48,14 @@ type ByYear = Record<string, Array<{
                                 <h3 class='text-2xl font-bold font-mono'>{ year }</h3>
                                 <ul class='list-disc ml-8'>
                                     { byYear[year].map((post) => {
-                                        const { data, slug } = post
+                                        const { date, title, slug } = post.frontmatter
                                         
-                                        return <li class='mt-1 space-x-2 border-b-2 border-dashed border-[--divider-color] text-[--accent-text-color] hover:text-[--link-hover-text-color]'>
-                                            <time datetime={ data.date.toISOString() }>{ dateToString(new Date(data.date)) }</time>
-                                            <Link href={`/post/${slug}`}>{ data.title }</Link>
-                                        </li>
+                                        return (
+                                            <li class='mt-1 space-x-2 border-b-2 border-dashed border-[--divider-color] text-[--accent-text-color] hover:text-[--link-hover-text-color]'>
+                                                <time datetime={ date.toISOString() }>{ dateToString(date) }</time>
+                                                <Link href={`/post/${slug}`}>{ title }</Link>
+                                            </li>
+                                        )
                                     })}
                                 </ul>
                             </li>
