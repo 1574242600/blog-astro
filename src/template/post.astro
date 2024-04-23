@@ -1,33 +1,27 @@
 ---
-import type { CollectionEntry } from 'astro:content'
-
 import Box from '@components/box.astro'
 import Divider from '@components/divider.astro'
 import Link from '@components/link.astro'
 import PostHeader from '@components/postHeader.astro'
 import Outdated from '@components/outdated.astro'
 import CenterH from '@components/utils/centerH.astro'
-
-import { initRemarkPluginFrontmatter } from '@utils/astro'
 import { toDays } from '@utils/browser'
-
 import siteMetadata from '@data/siteMetadata.json'
+import type { PostInstance } from '@service/postService'
 import DisqusJS from '@components/comment/disqus-js.astro'
 
 const { post } = Astro.props
+const { frontmatter, Content } = post
 const {
     siteUrl,
     comment: { config: commentConfig },
 } = siteMetadata
 
-const { remarkPluginFrontmatter, Content } = await post.render()
-const frontmatter = initRemarkPluginFrontmatter(remarkPluginFrontmatter)
-
-const postUrl = `${siteUrl}/post/${post.slug}`
+const postUrl = `${siteUrl}/post/${frontmatter.slug}`
 const lastUpdate = frontmatter.update ? frontmatter.update : frontmatter.date
 
 interface Props {
-    post: CollectionEntry<'posts'>
+    post: PostInstance
 }
 //todo 代码块(语言名称)  图片优化(图片缩略)
 ---
@@ -64,7 +58,7 @@ interface Props {
                 <DisqusJS
                     title={frontmatter.title}
                     siteTitle={siteMetadata.title}
-                    identifier={`/post/${post.slug}/`}
+                    identifier={`/post/${frontmatter.slug}/`}
                     shortname={commentConfig.shortname}
                     api={commentConfig.api}
                     apiKey={commentConfig.apikey}

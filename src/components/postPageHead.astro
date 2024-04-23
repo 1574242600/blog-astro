@@ -1,25 +1,25 @@
 ---
-import { type CollectionEntry } from 'astro:content'
+import type { PostFrontmatter } from '@service/postService'
 
-const { post, siteUrl, siteTitle, description } = Astro.props
-const postUrl = `${siteUrl}/post/${post.slug}`
+const { frontmatter, siteUrl, siteTitle } = Astro.props
+const postUrl = `${siteUrl}/post/${frontmatter.slug}`
 
 interface Props {
     siteTitle: string,
     siteUrl: string,
-    description: string,
-    post: CollectionEntry<'posts'>
+    frontmatter: PostFrontmatter
 }
 ---
-<meta name="author" content={post.data.author}>
+<meta name="description" content={frontmatter.excerpt.text} />
+<meta name="author" content={frontmatter.author}>
 <meta property="og:type" content="article">
-<meta property="og:title" content={post.data.title}>
-<meta property="og:description" content={description}>
+<meta property="og:title" content={frontmatter.title}>
+<meta property="og:description" content={frontmatter.excerpt.text}>
 <meta property="og:url" content={postUrl}>
 <meta property="og:site_name" content={siteTitle}>
 <meta property="og:locale" content="zh-Hans">
-<meta property="article:author" content={post.data.author}>
-<meta property="article:published_time" content={post.data.date.toISOString()}>
+<meta property="article:author" content={frontmatter.author}>
+<meta property="article:published_time" content={frontmatter.date.toISOString()}>
 <!--todo
 satori
 <meta property="og:image" content="">

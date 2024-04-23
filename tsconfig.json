@@ -11,7 +11,8 @@
       "@data/*": ["./src/data/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@utils/*": ["./src/utils/*"],
-      "@template/*": ["./src/template/*"]
+      "@template/*": ["./src/template/*"],
+      "@service/*": ["./src/service/*"]
     }
   },
   "extends": "astro/tsconfigs/strict"
