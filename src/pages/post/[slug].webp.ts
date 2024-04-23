@@ -20,11 +20,10 @@ export const GET: APIRoute<object, { slug: string }> = async ({ params }) => {
     const { slug } = params
     const { frontmatter } = ps.getPost(slug)
 
-
     const h = html`
 <div tw="h-full w-full flex flex-col bg-gray-100 text-gray-600">
   <div tw="m-10 flex flex-col h-full">
-    <h1 tw="text-6xl text-gray-800 font-bold">${frontmatter.title}</h1>
+    <h1 tw="text-6xl text-gray-800 font-bold">${autoTruncateString(frontmatter.title, 25)}</h1>
 
     <div tw="flex items-end mt-2">
       <span tw="text-4xl font-bold">${frontmatter.author}</span>
@@ -33,7 +32,7 @@ export const GET: APIRoute<object, { slug: string }> = async ({ params }) => {
     </div>
 
     <div tw="h-72 mt-12 text-4xl overflow-hidden">
-        ${frontmatter.excerpt.text}
+        ${autoTruncateString(frontmatter.excerpt.text, 150)}
     </div>
 
     <div tw="flex justify-end mt-4 text-4xl">
@@ -67,4 +66,12 @@ export const GET: APIRoute<object, { slug: string }> = async ({ params }) => {
             'Content-Type': 'image/webp'
         }
     })
+}
+
+function autoTruncateString(str: string, maxLen: number) {
+    if (str.length > maxLen) {
+        return str.slice(0, maxLen - 1) + '……'
+    }
+
+    return str
 }
