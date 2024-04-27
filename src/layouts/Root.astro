@@ -1,0 +1,75 @@
+---
+import '../style/global.css'
+import '../style/heti.css'
+
+import { ViewTransitions } from 'astro:transitions'
+
+import Sidebar from '@components/sidebar'
+import Background from '@components/background.astro'
+import Divider from '@components/divider.astro'
+import Footer from '@components/footer.astro'
+import Contact from '@components/contact.astro'
+import Menus from '@components/menus'
+import ProgressBar from '@components/progressBar.astro'
+
+import siteMetadata from '@data/siteMetadata.json'
+import menu from '@data/menu.json'
+import { defaultTheme } from '@data/config.json'
+
+const { pagePath } = Astro.props
+const { title, contacts } = siteMetadata
+const defaultActiveKey =
+    (pagePath.at(-1) === '/' ? pagePath.slice(0, -1) : pagePath) || '/'
+
+interface Props {
+    pagePath: string
+}
+
+//todob 主题
+---
+<head>
+    <ViewTransitions />
+</head>
+<div id='root' data-theme={defaultTheme}>
+    <Background />
+    <ProgressBar />
+    <div class='max-w-6xl mx-auto h-screen overflow-hidden'>
+        <Sidebar client:only='solid' transition:persist transition:persist-props>
+            <div
+                class='flex justify-center flex-col h-36 p-1 bg-[--primary-color]'
+            >
+                <div
+                    class='text-center text-4xl first-line:font-mono font-black'
+                >
+                    {title}
+                </div>
+            </div>
+            <Menus
+                defaultActiveKey={defaultActiveKey}
+                data={menu}
+                client:only='solid'
+            />
+            <div class='absolute bottom-0 w-full'>
+                <div class='flex justify-center space-x-4 h-8 w-full'>
+                    {
+                        contacts.map(data => (
+                            <Contact
+                                id={data.id}
+                                name={data.name}
+                                url={data.url}
+                            />
+                        ))
+                    }
+                </div>
+                <Divider />
+                <Footer
+                    title={siteMetadata.title}
+                    author={siteMetadata.author}
+                    since={siteMetadata.since}
+                />
+            </div>
+        </Sidebar>
+
+        <main id='body' class='lg:ml-64 h-full overflow-auto'><slot /></main>
+    </div>
+</div>

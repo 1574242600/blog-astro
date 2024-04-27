@@ -1,20 +1,5 @@
-/**
-*   for Turbo
-**/
 export function addLoadEventListener(name: string, handler: () => void) {
-    const temp = window.temp = window.temp || {}
-
-    document.addEventListener('turbo:load', () => {
-        if (temp[name]) {
-            temp[name] = false
-            return
-        }
-        
-        handler()
-    })
-
-    handler()
-    temp[name] = true
+    document.addEventListener('astro:page-load', handler)
 }
 
 export function toDays(ms: number) {

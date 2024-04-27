@@ -1,0 +1,122 @@
+---
+const animationDuration = 300
+---
+
+<div
+    id='progress-bar'
+    class='fixed block h-1 top-0 left-0 bg-[--progress-bar-color] z-50'
+    style={{
+        display: 'none',
+        transform: 'translate3d(0, 0, 0)',
+        transition:
+            `width ${animationDuration}ms ease-out,` +
+            `opacity ${animationDuration / 2}ms ${animationDuration / 2}ms ease-in`,
+    }}
+    data-animation-duration={animationDuration}
+    transition:persist="progress-bar"
+/>
+
+<script>
+    class ProgressBar {
+        private progressElement: HTMLDivElement
+        private animationDuration: number
+        private trickleInterval?: number
+        private value = 0
+
+        constructor(
+            progressElement: HTMLDivElement,
+            animationDuration: number,
+        ) {
+            this.progressElement = progressElement
+            this.animationDuration = animationDuration
+        }
+
+        public start() {
+            this.progressElement.style.display = 'block'
+            this.startTrickling()
+        }
+
+        public done() {
+            this.stopTrickling()
+            this.setValue(1)
+
+            this.fadeProgressElement(() => {
+                this.progressElement.style.display = 'none'
+            })
+        }
+
+        public reset() {
+            this.progressElement.style.opacity = '1'
+            this.progressElement.style.width = ''
+            this.value = 0
+        }
+
+        private setValue(value: number) {
+            this.value = value > 1 ? 1 : value
+            this.refresh()
+        }
+
+        private fadeProgressElement(callback: () => void) {
+            this.progressElement.style.opacity = '0'
+            setTimeout(callback, this.animationDuration * 1.5)
+        }
+
+        private trickle = () => {
+            this.setValue(this.value + Math.random() / 100)
+        }
+
+        private startTrickling() {
+            if (!this.trickleInterval) {
+                this.trickleInterval = window.setInterval(
+                    this.trickle,
+                    this.animationDuration,
+                )
+            }
+        }
+
+        private stopTrickling() {
+            window.clearInterval(this.trickleInterval)
+            delete this.trickleInterval
+        }
+
+        private refresh() {
+            requestAnimationFrame(() => {
+                this.progressElement.style.width = `${10 + this.value * 90}%`
+            })
+        }
+    }
+
+    const div = document.getElementById('progress-bar') as HTMLDivElement
+
+    if (div) {
+        const animationDuration = Number(div.dataset.animationDuration) || 300
+        const pb = new ProgressBar(div, animationDuration)
+
+        document.addEventListener('astro:before-preparation', async () => {
+            pb.reset() 
+            const result = await isTimeout(300)
+            if (result) pb.start()
+        })
+
+        document.addEventListener('astro:page-load', () => pb.done())
+    }
+
+    //判断页面转换是否超过指定时间，应在 astro:before-preparation 事件里调用
+    async function isTimeout(timeout: number) {
+        const handlers: Record<string, () => void> = {}
+
+        const _getLoadTime: () => Promise<boolean> = () => new Promise((resolve) => {
+            handlers['astro:page-load'] = () => {
+                resolve(false)
+            }
+
+            Object.keys(handlers).forEach((key) => document.addEventListener(key, handlers[key]))
+        })
+
+        const out: () => Promise<boolean> = () => new Promise((resolve) => setTimeout(() => resolve(true), timeout))
+        const result = await Promise.race([_getLoadTime(), out()])
+
+        Object.keys(handlers).forEach((key) => document.removeEventListener(key, handlers[key]))
+        return result
+    }
+</script>
