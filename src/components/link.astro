@@ -1,18 +1,25 @@
 ---
 interface Props {
     href: string
+    target?: string
     label?: string
+    ref?: string
 }
 
-const { href, label = 'A link' } = Astro.props
+const { 
+    href, 
+    label = 'A link',
+    target = '_blank',
+    ref = ''
+} = Astro.props
 ---
 
 <a
     class='hover:text-[--link-hover-text-color]'
     aria-label={label}
     href={href}
-    target='_blank'
-    rel='noreferrer'
+    target={target}
+    rel={ref}
 >
     <slot />
 </a>
