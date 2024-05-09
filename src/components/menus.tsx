@@ -1,43 +1,43 @@
-/*
-<Menu
-    defaultActiveKey={defaultActiveKey}
-    client:only="solid"        
->
-{      
-    menu.map(m => (
-        <Item key={m.path} client:only="solid">
-            <div href={m.path}>
-                <div class='w-3/4 ml-2'>
-                    <Svg id={m.svgId} class='w-5 h-5 mr-4 inline-block' client:only="solid"/>
-                        {m.name}
-                </div>
-            </div>
-        </Item>
-    ))
-}
-</Menu>
-
-直接这么用的话，Menu 组件 children 会被 astro 处理, 而用 For 也有问题, 所以在这里再包一层
-
-*/
-
-import { For } from 'solid-js'
-import type { Component } from 'solid-js'
+import { For, createSignal, onMount } from 'solid-js'
+import type { Accessor, Component, Setter } from 'solid-js'
 import { Menu, Item } from './menu'
 import Svg from './svg'
 
 const Menus: Component<MenusProps> = (props) => {
+    const [items, setItems] = createSignal<ItemSignal[]>([]) 
+
+    onMount(() => {
+        const items = props.data.map(item => {
+            const [active, setActive] = createSignal(props.defaultActiveKey === item.path) 
+
+            return {
+                id: item.path,
+                active, 
+                setActive
+            }
+        })
+
+        setItems(items)
+    })
+
+    const getItemById = (id: string) => items().find(v => v.id === id)
+
     return (
-        <Menu defaultActiveKey={props.defaultActiveKey}>
+        <Menu>
             <For each={props.data}>
                 {m => (
-                    <Item key={m.path} >
-                        <a href={m.path}
-                            onClick={
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                /// @ts-expect-error todo 重构 Sidebar
-                                () => setTimeout(() => window.setXOffset(-256), 150)
-                            }>
+                    <Item 
+                        active={getItemById(m.path)?.active() || false} 
+                        onClick={() => {
+                            items().find(v => v.active() === true)?.setActive(false)
+                            getItemById(m.path)?.setActive(true)
+
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            /// @ts-expect-error todo 重构 Sidebar
+                            setTimeout(() => window.setXOffset(-256), 150)
+                        }}
+                    >
+                        <a href={m.path}>
                             <div>
                                 <Svg id={m.svgId} className='w-4 h-4 mr-6 inline-block'/>
                                 {m.name}
@@ -54,9 +54,15 @@ export default Menus
 
 export interface MenusProps {
     data: {
-        name: string,
+        name: string
         svgId: string
         path: string
     }[]
     defaultActiveKey: string
+}
+
+interface ItemSignal {
+    id: string
+    active: Accessor<boolean>
+    setActive: Setter<boolean>
 }
