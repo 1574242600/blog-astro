@@ -15,29 +15,28 @@ const { className = '' } = Astro.props
 const { name, url, avatar, description } = Astro.props.data
 ---
 
-<div
-    class={'p-4 text-center hover:bg-[--accent-bg-color] ' +
-        className}
->
-    <Link href={url}>
+<Link href={url}>
+    <div class={'flex gap-2 border-2 hover:bg-[--accent-bg-color] ' + className}>
         <img
-            class='m-auto'
+            class='bg-slate-300 border-r-2'
             src={avatar}
             alt='avatar'
-            width={100}
-            height={100}
+            width={64}
+            height={64}
         />
-        <div
-            class='mt-4 text-sm font-medium text-[--accent-text-color] truncate'
-            title={name}
-        >
-            {name}
+        <div class="md:truncate">
+            <div
+                class='mt-1 mb-2 text-md font-bold text-[--accent-text-color]'
+                title={name}
+            >
+                {name}
+            </div>
+            <div
+                class='text-xs font-medium text-[--minor-text-color]'
+                title={description}
+            >
+                {description}
+            </div>
         </div>
-        <div
-            class='text-xs font-medium text-[--minor-text-color] truncate'
-            title={description}
-        >
-            {description}
-        </div>
-    </Link>
-</div>
+    </div>
+</Link>
