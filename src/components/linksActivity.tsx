@@ -3,20 +3,20 @@ import { ErrorBoundary, For, Show, createResource, createSignal } from 'solid-js
 import { dateToString } from '@utils/browser'
 import type { Component } from 'solid-js'
 
-const FriendsActivity: Component<FriendsActivityProps> = (props) => {
+const LinksActivity: Component<LinksActivityProps> = (props) => {
     //todo 虚拟列表，滑动加载 过度
     const [page, /*setPage*/] = createSignal(0)
-    const [friendsActivity] = createResource(page, fetchFriendsActivity.bind(null, props.apiUrl))
+    const [linksActivity] = createResource(page, fetchLinksActivity.bind(null, props.apiUrl))
 
     return (
         <div class={'flex flex-col w-full h-full overflow-y-auto'}>
             <ErrorBoundary fallback={err => <ErrorInfo error={err} /> }>
                 <Show
-                    when={friendsActivity()}
+                    when={linksActivity()}
                     fallback={<Loading />}
                 >
-                    <For each={friendsActivity()}>
-                        {(item) =>  <FriendsActivityItem {...item} />}
+                    <For each={linksActivity()}>
+                        {(item) =>  <LinksActivityItem {...item} />}
                     </For>
                 </Show>
             </ErrorBoundary>
@@ -24,7 +24,7 @@ const FriendsActivity: Component<FriendsActivityProps> = (props) => {
     )
 }
 
-const FriendsActivityItem: Component<FriendsActivityItemProps> = (props) => {
+const LinksActivityItem: Component<LinksActivityItemProps> = (props) => {
     return (
         <div 
             class={
@@ -71,7 +71,7 @@ const ErrorInfo: Component<{ error: Error }> = (props) => {
     )
 }
 
-function fetchFriendsActivity(apiUrl: string, page: number): Promise<FriendsActivityItem[]> {
+function fetchLinksActivity(apiUrl: string, page: number): Promise<LinksActivityItem[]> {
     const url = new URL(apiUrl)
     url.searchParams.append('items', '20')
     url.searchParams.append('offset', String(page * 20))
@@ -85,17 +85,17 @@ function fetchFriendsActivity(apiUrl: string, page: number): Promise<FriendsActi
         })
 }
 
-export interface FriendsActivityItem {
+export interface LinksActivityItem {
     url: string,
     date: number,
     title: string,
     siteName: string
 }
 
-export interface FriendsActivityProps {
+export interface LinksActivityProps {
     apiUrl: string
 }
 
-export type FriendsActivityItemProps = FriendsActivityItem
+export type LinksActivityItemProps = LinksActivityItem
 
-export default FriendsActivity
+export default LinksActivity
