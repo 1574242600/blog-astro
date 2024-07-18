@@ -10,6 +10,9 @@ import links from '@data/links.json'
 import siteMetadata from '@data/siteMetadata.json'
 import { friendsActivityApi } from '@data/config.json'
 
+const friends = links.filter(({ isOneWay }) => !isOneWay)
+const oneWay = links.filter(({ isOneWay }) => isOneWay)
+
 const description = links
     .slice(0, 5)
     .map(data => `${data.name} (${data.description})`)
@@ -22,18 +25,36 @@ const description = links
 </Head>
 <Layout pagePath='/links'>
     <CenterH className='lg:mt-8'>
-        <Box className=' xl:w-3xl lg:w-2xl md:w-xl w-full h-80'>
+        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full h-80'>
             <LinksActivity apiUrl={friendsActivityApi} client:only='solid' />
         </Box>
     </CenterH>
+
     <CenterH className='mt-8'>
-        <Box className=' xl:w-3xl lg:w-2xl md:w-xl w-full'>
+        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full'>
             <h2 class="m-[8px_16px_0_16px] text-xl font-bold border-b-2">友人们</h2>
             <div
                 class='grid md:grid-cols-2 grid-cols-1 gap-4 p-4'
             >
                 {
-                    links.map(node => (
+                    friends.map(node => (
+                        <div>
+                            <FriendCard data={node} className='h-16' />
+                        </div>
+                    ))
+                }
+            </div>
+        </Box>
+    </CenterH>
+
+    <CenterH className='mt-8'>
+        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full'>
+            <h2 class="m-[8px_16px_0_16px] text-xl font-bold border-b-2">单向链接</h2>
+            <div
+                class='grid md:grid-cols-2 grid-cols-1 gap-4 p-4'
+            >
+                {
+                    oneWay.map(node => (
                         <div>
                             <FriendCard data={node} className='h-16' />
                         </div>
