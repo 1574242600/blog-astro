@@ -1,0 +1,42 @@
+---
+import Link from './link.astro'
+
+interface Props {
+    data: {
+        name: string
+        url: string
+        avatar: string
+        description: string
+    }
+    className?: string
+}
+
+const { className = '' } = Astro.props
+const { name, url, avatar, description } = Astro.props.data
+---
+
+<Link href={url}>
+    <div class={'flex gap-2 border-2 hover:bg-[--accent-bg-color] ' + className}>
+        <img
+            class='bg-slate-300 border-r-2'
+            src={avatar}
+            alt='avatar'
+            width={64}
+            height={64}
+        />
+        <div class="md:truncate">
+            <div
+                class='mt-1 mb-2 text-md font-bold text-[--accent-text-color]'
+                title={name}
+            >
+                {name}
+            </div>
+            <div
+                class='text-xs font-medium text-[--minor-text-color]'
+                title={description}
+            >
+                {description}
+            </div>
+        </div>
+    </div>
+</Link>
