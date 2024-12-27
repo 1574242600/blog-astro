@@ -7,10 +7,10 @@ import siteMetadata from './src/data/siteMetadata.json'
 import expressiveCode from 'astro-expressive-code'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import decapCmsOauth from 'astro-decap-cms-oauth'
-
 import cloudflare from '@astrojs/cloudflare'
 
 export default defineConfig({
+    adapter: cloudflare(),
     site: siteMetadata.siteUrl,
     integrations: [
         tailwind(), 
@@ -34,14 +34,12 @@ export default defineConfig({
             remarkReadingTime
         ]
     },
-
     redirects: {
         '/page/1': '/'
     },
-    adapter: cloudflare(),
     vite: {
         ssr: {
             external: ['node:fs/promises'],
         },
-    },
+    }
 })
