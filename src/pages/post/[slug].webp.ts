@@ -7,6 +7,8 @@ import { readFontsFile } from '@utils/astro'
 import { dateToString } from '@utils/browser'
 import siteMetadata from '@data/siteMetadata.json'
 
+export const prerender = true
+
 export async function getStaticPaths() {
     const ps = await PostService.init()
     const posts = ps.getPosts()
