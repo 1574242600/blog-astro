@@ -33,8 +33,10 @@ const Sidebar: Component<SidebarProps> = (props) => {
             onSwipeEnd: () => {
                 const xOff = xOffset()
                 if (isOpen()) {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     xOff < -10 ? setXOffset(-256) : setXOffset(0)
                 } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     xOff < -246 ? setXOffset(-256) : setXOffset(0)
                 }
 
