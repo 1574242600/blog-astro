@@ -20,6 +20,7 @@ collections:
     create: true
     fields:
       - { label: "标题", name: "title", widget: "string" }
+      - { label: "作者", name: "author", widget: "string", default: "Nworm" }
       - { label: "发布日期", name: "date", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
       - { label: "更新日期", name: "update", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss", required: false }
       - { label: "标签", name: "tags", widget: "list", required: false }
@@ -27,4 +28,4 @@ collections:
 
 search: false
 media_folder: "/assets"
-public_folder: https://assets.nworm.icu/
+public_folder: "https://assets.nworm.icu"
