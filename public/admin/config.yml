@@ -21,8 +21,8 @@ collections:
     fields:
       - { label: "标题", name: "title", widget: "string" }
       - { label: "发布日期", name: "date", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
-      - { label: "更新日期", name: "update", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
-      - { label: "标签", name: "tags", widget: "list" }
+      - { label: "更新日期", name: "update", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss", required: false }
+      - { label: "标签", name: "tags", widget: "list", required: false }
       - { label: "正文", name: "body", widget: "markdown" }
 
 search: false
