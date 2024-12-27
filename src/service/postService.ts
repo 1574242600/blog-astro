@@ -54,7 +54,7 @@ class PostService {
             const newPost = <PostInstance><unknown>Object.assign({}, post)
 
             newPost.frontmatter.slug = getSlug(post.file)
-            newPost.frontmatter.excerpt = PostServiceUtils.genPostExcerpt(post)
+            newPost.frontmatter.excerpt = await PostServiceUtils.genPostExcerpt(post)
             newPost.frontmatter.date = new Date(post.frontmatter.date)
 
             return newPost
@@ -85,8 +85,8 @@ class PostServiceUtils {
         }
     }
             
-    public static genPostExcerpt(post: UnhandledPostInstance) {
-        const fullHtml = post.compiledContent()
+    public static async genPostExcerpt(post: UnhandledPostInstance) {
+        const fullHtml = await post.compiledContent()
         const excerptHtml = fullHtml.split('<!--more-->')[0] ?? fullHtml
         const excerptText = excerptHtml
             .replace(/<(\S*?)[^>]*>.*?|<.*? \/>/g, ' ')

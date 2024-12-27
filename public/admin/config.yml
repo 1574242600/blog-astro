@@ -1,0 +1,7 @@
+backend:
+  name: github
+  branch: main 
+  repo: 1574242600/blog-data
+  site_domain: nworm.icu
+  base_url: https://nworm.icu
+  auth_endpoint: oauth
