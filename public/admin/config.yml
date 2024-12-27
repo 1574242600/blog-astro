@@ -4,4 +4,27 @@ backend:
   repo: 1574242600/blog-data
   site_domain: nworm.icu
   base_url: https://nworm.icu
-  auth_endpoint: oauth
+  auth_endpoint: admin/oauth
+  commit_messages:
+    create: Create {{collection}} “{{slug}}”
+    update: Update {{collection}} “{{slug}}”
+    delete: Delete {{collection}} “{{slug}}”
+    uploadMedia: Upload “{{path}}”
+    deleteMedia: Delete “{{path}}”
+    openAuthoring: '{{message}}'
+
+collections:
+  - name: "posts"
+    label: "文章"
+    folder: "content/posts"
+    create: true
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
+      - { label: "更新日期", name: "update", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
+      - { label: "标签", name: "tags", widget: "list" }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+search: false
+media_folder: "/assets"
+public_folder: https://assets.nworm.icu/
