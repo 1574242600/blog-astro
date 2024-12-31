@@ -23,6 +23,7 @@ class PostService {
         return posts
             .sort((a ,b) => Number(b.frontmatter.date) -  Number(a.frontmatter.date))
             .filter(post => post.frontmatter.slug !== 'about')
+            .filter(post => !post.frontmatter.draft)
     }
 
     public getPost(idOrSlug: string) {
