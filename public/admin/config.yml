@@ -6,11 +6,11 @@ backend:
   base_url: https://nworm.icu
   auth_endpoint: admin/oauth
   commit_messages:
-    create: Create {{collection}} “{{slug}}”
-    update: Update {{collection}} “{{slug}}”
-    delete: Delete {{collection}} “{{slug}}”
-    uploadMedia: Upload “{{path}}”
-    deleteMedia: Delete “{{path}}”
+    create: "posts: create {{collection}} “{{slug}}”"
+    update: "posts: update {{collection}} “{{slug}}”"
+    delete: "posts: delete {{collection}} “{{slug}}”"
+    uploadMedia: "assets: upload “{{path}}”"
+    deleteMedia: "assets: delete “{{path}}”"
     openAuthoring: '{{message}}'
 
 collections:
@@ -18,8 +18,10 @@ collections:
     label: "文章"
     folder: "content/posts"
     create: true
+    slug: "{{fields.slug}}"
     fields:
       - { label: "标题", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
       - { label: "作者", name: "author", widget: "string", default: "Nworm" }
       - { label: "发布日期", name: "date", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
       - { label: "更新日期", name: "update", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss", required: false }
