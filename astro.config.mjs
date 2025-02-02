@@ -8,12 +8,14 @@ import expressiveCode from 'astro-expressive-code'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import decapCmsOauth from 'astro-decap-cms-oauth'
 import cloudflare from '@astrojs/cloudflare'
+import icon from "astro-icon"
 
 export default defineConfig({
     adapter: cloudflare(),
     site: siteMetadata.siteUrl,
     integrations: [
-        tailwind(), 
+        tailwind(),
+        icon(),
         solid(), 
         sitemap(), 
         expressiveCode({
