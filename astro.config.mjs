@@ -10,6 +10,7 @@ import decapCmsOauth from 'astro-decap-cms-oauth'
 import cloudflare from '@astrojs/cloudflare'
 
 export default defineConfig({
+    output: 'static',
     adapter: cloudflare(),
     site: siteMetadata.siteUrl,
     integrations: [
