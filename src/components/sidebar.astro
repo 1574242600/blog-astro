@@ -1,4 +1,6 @@
 ---
+import Svg from './svg.astro'
+
 const lgClass = 'lg:absolute lg:left-auto!'
 const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
 ---
@@ -36,11 +38,11 @@ const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
         for="siderbar"
         class={ 
             'fixed bottom-3 right-3 w-12 h-12 bg-(--primary-color) rounded-full z-20 '
+            + 'btn btn-circle '
             + 'lg:hidden'
         }   
     >
-        {
-            //todo 图标
-        }
+        <Svg id='menu' class='w-7 h-7 text-(--primary-text-color)' />
+        <div class="hidden">for siderbar</div>
     </label>
 </div>
