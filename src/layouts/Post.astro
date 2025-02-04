@@ -36,11 +36,11 @@ interface Props {
                     toDays(Date.now() - new Date(lastUpdate).getTime()) >
                         90 && <Outdated lastUpdate={lastUpdate} />
                 }
-                <div class='heti m-auto pt-4 !max-w-2xl'>
+                <div class='heti m-auto pt-4 max-w-2xl!'>
                     <Content />
                 </div>
             </article>
-            <div class='bg-[--second-minor-color] mt-8 p-2 text-xs font-medium'>
+            <div class='bg-(--second-minor-color) mt-8 p-2 text-xs font-medium'>
                 <div>作者：{frontmatter.author}</div>
                 <div>本文链接：<Link href={postUrl}>{postUrl}</Link></div>
                 <div>

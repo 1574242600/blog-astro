@@ -1,5 +1,5 @@
 ---
-const lgClass = 'lg:absolute lg:!left-auto'
+const lgClass = 'lg:absolute lg:left-auto!'
 const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
 ---
 <div>
@@ -8,7 +8,7 @@ const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
     <div 
        
         class={
-            'h-full w-64 shadow bg-[--primary-bg-color] '
+            'h-full w-64 shadow-sm bg-(--primary-bg-color) '
             + `${lgClass} ${lgMClass} `
             + 'peer-checked:translate-x-0'
         }
@@ -35,7 +35,7 @@ const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
     <label
         for="siderbar"
         class={ 
-            'fixed bottom-3 right-3 w-12 h-12 bg-[--primary-color] rounded-full z-20 '
+            'fixed bottom-3 right-3 w-12 h-12 bg-(--primary-color) rounded-full z-20 '
             + 'lg:hidden'
         }   
     >

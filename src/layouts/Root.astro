@@ -36,7 +36,7 @@ interface Props {
     <div class='max-w-6xl mx-auto h-screen overflow-hidden'>
         <Sidebar transition:persist>
             <div
-                class='flex justify-center flex-col h-36 p-1 bg-[--primary-color]'
+                class='flex justify-center flex-col h-36 p-1 bg-(--primary-color)'
             >
                 <div
                     class='text-center text-4xl first-line:font-mono font-black'
@@ -47,7 +47,6 @@ interface Props {
             <Menus
                 defaultActiveKey={defaultActiveKey}
                 data={menu}
-                client:load
             />
             <div class='absolute bottom-0 w-full'>
                 <div class='flex justify-center gap-4 h-8 w-full'>

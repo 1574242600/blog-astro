@@ -26,7 +26,7 @@ const H = ('h' + (titleLevel || 1)) as 'h1' //h*
         {frontmatter.title}
     </H>
 
-    <div class='mt-2 text-xs text-center space-x-2 text-[--minor-text-color]'>
+    <div class='mt-2 text-xs text-center space-x-2 text-(--minor-text-color)'>
         <span>发表于: {dateStr}</span>
         <span>|</span>
         {
@@ -45,7 +45,7 @@ const H = ('h' + (titleLevel || 1)) as 'h1' //h*
                     ? tags.map((tag, index) => (
                         <Fragment>
                             <a
-                                class='hover:text-[--link-hover-text-color]'
+                                class='hover:text-(--link-hover-text-color)'
                                 href={`/tag/${tag.toLowerCase()}/1`}
                             >
                                 {tag}

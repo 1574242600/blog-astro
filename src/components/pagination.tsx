@@ -15,13 +15,13 @@ export const Pagination: Component<PaginationProps> = (props) => {
 
 const PageNumber: Component<PageNumberProps> = (props) => {
     const merged = mergeProps({ pagePath: '', test: null, active: false, className: ''}, props)
-    const activeClass = ' !border-[--primary-color] text-[--accent-color]'
-    const hoverClass = ' hover:border-[--primary-color] hover:text-[--accent-color]'
+    const activeClass = ' border-(--primary-color)! text-(--accent-color)'
+    const hoverClass = ' hover:border-(--primary-color) hover:text-(--accent-color)'
 
     return (
         <a 
             class={
-                'h-8 w-8 pt-1 border border-[--divider-color] bg-[--primary-bg-color] text-center shadow cursor-pointer ' 
+                'h-8 w-8 pt-1 border border-(--divider-color) bg-(--primary-bg-color) text-center shadow-sm cursor-pointer ' 
                 + hoverClass
                 + (merged.active ? activeClass : '')
                 + merged.className
@@ -53,7 +53,7 @@ const renderPageNumber = (
             const page = currentPage + i + 1
             if (items.length === lengthLimit - 1) {
                 // eslint-disable-next-line solid/no-react-specific-props
-                items.push(<PageNumber text='...' className='!cursor-default' />)
+                items.push(<PageNumber text='...' className='cursor-default!' />)
                 break
             }
 
