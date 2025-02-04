@@ -11,6 +11,7 @@ import cloudflare from '@astrojs/cloudflare'
 import icon from "astro-icon"
 
 export default defineConfig({
+    output: 'static',
     adapter: cloudflare(),
     site: siteMetadata.siteUrl,
     integrations: [

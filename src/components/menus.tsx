@@ -1,7 +1,7 @@
 import { For, createSignal, onMount } from 'solid-js'
 import type { Accessor, Component, Setter } from 'solid-js'
 import { Menu, Item } from './menu'
-import Svg from './svg'
+import Svg from './svg.astro'
 
 const Menus: Component<MenusProps> = (props) => {
     const [items, setItems] = createSignal<ItemSignal[]>([]) 
@@ -31,15 +31,11 @@ const Menus: Component<MenusProps> = (props) => {
                         onClick={() => {
                             items().find(v => v.active() === true)?.setActive(false)
                             getItemById(m.path)?.setActive(true)
-
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            /// @ts-expect-error todo 重构 Sidebar
-                            setTimeout(() => window.setXOffset(-256), 150)
                         }}
                     >
                         <a href={m.path}>
                             <div>
-                                <Svg id={m.svgId} className='w-4 h-4 mr-6 inline-block'/>
+                                {/* <Svg id={m.svgId} class='w-4 h-4 mr-6 inline-block'/> */}
                                 {m.name}
                             </div>
                         </a>
