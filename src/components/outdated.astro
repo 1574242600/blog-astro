@@ -8,7 +8,7 @@ const { lastUpdate } = Astro.props
 
 <div
     id='outdated'
-    class='h-15 m-4 p-4 bg-(--outdated-bg-color) rounded-sm border-2 border-(--outdated-border-color)'
+    class='min-h-15 m-4 p-4 bg-(--outdated-bg-color) rounded-sm border-2 border-(--outdated-border-color)'
 >
     <div class='text-(--outdated-text-color) text-center'>
         本文最后更新于 <span data-last-update={lastUpdate}>N</span> 天前，文中所描述的信息可能已过时
