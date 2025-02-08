@@ -1,0 +1,73 @@
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+@plugin "daisyui" {
+    themes: yoshino --default, dark --prefersdark;
+}
+
+@plugin "daisyui/theme" {
+  name: "yoshino";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-base-100: #f9fafb;
+  --color-base-200: #f3f4f6;
+  --color-base-300: #e5e7eb;
+  --color-base-content: #4b5563;
+  --color-primary: #4ade80;
+  --color-primary-content: #dcfce7;
+  --color-secondary: #0ea5e9;
+  --color-secondary-content: #38bdf8;
+  --color-accent: #22c55e;
+  --color-accent-content: oklch(98% 0.01 160);
+  --color-neutral: #1f2937;
+  --color-neutral-content: #6b7280;
+
+  /* 
+  --color-info: oklch(70% 0.2 220);
+  --color-info-content: oklch(98% 0.01 220);
+  --color-success: oklch(65% 0.25 140);
+  --color-success-content: oklch(98% 0.01 140);
+  --color-warning: #f59e0b;
+  --color-warning-content: #d97706;
+  --color-error: oklch(65% 0.3 30);
+  --color-error-content: oklch(98% 0.01 30); 
+  */
+
+  /* border radius */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* border size */
+  --border: 1px;
+
+  /* effects */
+  --depth: 1;
+  --noise: 0;
+}
+
+#root[data-theme="yoshino"] {
+  --divider-color: #d1d5db;               /* gray-300 */
+
+  --outdated-bg-color: #fef3c7;           /* bg-amber-100 */
+  --outdated-border-color: #f59e0b;       /* bg-amber-500 */
+  --outdated-text-color: #d97706;         /* bg-amber-600 */
+
+  --heti-primary-text-color: #333;
+  --heti-blockquote-bg-color: #1098ad33;
+  --heti-blockquote-border-color: var(--color-secondary-content);
+  --heti-hr-bg-color: #d1d5db;
+  --heti-code-text-color: #47769a;
+  --heti-title-border-color: var(--color-primary);
+  --heti-title-text-color: #4b5563;
+  --heti-td-border-color: #aaa;
+  --heti-link-text-color: var(--color-secondary-content);
+  --heti-link-hover-text-color: #0ea5e9;
+  --heti-mark-bg-color: #fff700e0;
+}

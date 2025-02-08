@@ -1,0 +1,48 @@
+---
+import Svg from './svg.astro'
+
+const lgClass = 'lg:absolute lg:left-auto!'
+const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
+---
+<div>
+    <input type="checkbox" id="siderbar" class="peer hidden" />
+
+    <div 
+       
+        class={
+            'h-full w-64 shadow-sm bg-base-200 '
+            + `${lgClass} ${lgMClass} `
+            + 'peer-checked:translate-x-0'
+        }
+        style={{
+            transition: 'all 0.5s'
+        }}
+    >
+        <slot />
+    </div>
+
+    <label 
+        for="siderbar"
+        class={
+            'fixed h-full w-full bg-black opacity-0 pointer-events-none ' 
+            + 'lg:hidden peer-checked:opacity-50  peer-checked:pointer-events-auto'
+        }
+        style={{
+            transition: 'all 0.5s'
+        }}
+    >
+        <div class="hidden">for siderbar</div>
+    </label>
+
+    <label
+        for="siderbar"
+        class={ 
+            'fixed bottom-3 right-3 w-12 h-12 bg-primary rounded-full z-20 '
+            + 'btn btn-circle border-none! shadow-none! '
+            + 'lg:hidden'
+        }   
+    >
+        <Svg id='menu' class='w-7 h-7 text-base-200' />
+        <div class="hidden">for siderbar</div>
+    </label>
+</div>
