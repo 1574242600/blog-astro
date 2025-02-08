@@ -12,15 +12,15 @@ interface Props {
 
 const { data, defaultActiveKey } = Astro.props
 
-const itemActiveClass = 'border-r-4 border-(--accent-color) bg-(--minor-color)'
-const itemTextClass = 'font-mono font-medium text-md text-center hover:text-(--accent-color)'
+const itemActiveClass = 'border-r-4 border-accent bg-primary-content'
+const itemTextClass = 'font-mono font-medium text-md text-center hover:text-accent'
 ---
 <ul class='list-none list-inside w-full'>
     {
         data.map((m) => (
             <li
                 class={
-                    'h-10 leading-10 hover:bg-(--accent-bg-color) '
+                    'h-10 leading-10 hover:bg-base-100 '
                     + itemTextClass + ' '
                     + (m.path === defaultActiveKey ? itemActiveClass : '')
                 }

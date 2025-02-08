@@ -51,7 +51,7 @@ function dateToString (date: Date): string {
                                         const { date, title, slug } = post.frontmatter
                                         
                                         return (
-                                            <li class='mt-1 space-x-2 border-b-2 border-dashed border-(--divider-color) text-(--accent-text-color) hover:text-(--link-hover-text-color)'>
+                                            <li class='mt-1 space-x-2 border-b-2 border-dashed border-(--divider-color) text-neutral hover:text-secondary'>
                                                 <time datetime={ date.toISOString() }>{ dateToString(date) }</time>
                                                 <Link href={`/post/${slug}`}>{ title }</Link>
                                             </li>

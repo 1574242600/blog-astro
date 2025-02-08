@@ -29,7 +29,7 @@ const LinksActivityItem: Component<LinksActivityItemProps> = (props) => {
         <div 
             class={
                 'flex flex-row p-2 '  
-                + 'hover:bg-(--accent-bg-color) border-b border-(--divider-color) '
+                + 'hover:bg-base-100 border-b border-(--divider-color) '
                 + 'lg-m:flex-col'
             }
         >
@@ -43,7 +43,7 @@ const LinksActivityItem: Component<LinksActivityItemProps> = (props) => {
             >{props.siteName}</div>
             <div class='grow'>
                 <a
-                    class='hover:text-(--link-hover-text-color)'
+                    class='hover:text-secondary'
                     title={props.title}
                     aria-label={props.title}
                     href={props.url}

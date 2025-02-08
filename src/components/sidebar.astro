@@ -10,7 +10,7 @@ const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
     <div 
        
         class={
-            'h-full w-64 shadow-sm bg-(--primary-bg-color) '
+            'h-full w-64 shadow-sm bg-base-200 '
             + `${lgClass} ${lgMClass} `
             + 'peer-checked:translate-x-0'
         }
@@ -37,12 +37,12 @@ const lgMClass = 'lg-m:fixed lg-m:z-10 lg-m:-translate-x-[256px]'
     <label
         for="siderbar"
         class={ 
-            'fixed bottom-3 right-3 w-12 h-12 bg-(--primary-color) rounded-full z-20 '
-            + 'btn btn-circle '
+            'fixed bottom-3 right-3 w-12 h-12 bg-primary rounded-full z-20 '
+            + 'btn btn-circle border-none! shadow-none! '
             + 'lg:hidden'
         }   
     >
-        <Svg id='menu' class='w-7 h-7 text-(--primary-text-color)' />
+        <Svg id='menu' class='w-7 h-7 text-base-200' />
         <div class="hidden">for siderbar</div>
     </label>
 </div>

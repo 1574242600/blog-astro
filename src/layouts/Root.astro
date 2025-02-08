@@ -25,18 +25,18 @@ interface Props {
     pagePath: string
 }
 
-//todob 主题
+//todo 主题
 ---
 <head>
     <ClientRouter />
 </head>
-<div id='root' data-theme={defaultTheme}>
+<div id='root' data-theme={defaultTheme} class="bg-base-300">
     <Background />
     <ProgressBar />
     <div class='max-w-6xl mx-auto h-screen overflow-hidden'>
         <Sidebar transition:persist>
             <div
-                class='flex justify-center flex-col h-36 p-1 bg-(--primary-color)'
+                class='flex justify-center flex-col h-36 p-1 bg-primary'
             >
                 <div
                     class='text-center text-4xl first-line:font-mono font-black'
