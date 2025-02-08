@@ -41,7 +41,7 @@ const LinksActivityItem: Component<LinksActivityItemProps> = (props) => {
                 }
                 title={props.siteName}
             >{props.siteName}</div>
-            <div class='grow'>
+            <div class='grow truncate max-w-135!'>
                 <a
                     class='hover:text-secondary'
                     title={props.title}
