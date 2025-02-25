@@ -22,7 +22,7 @@
     "astro-decap-cms-oauth": "^0.5.1",
     "astro-icon": "^1.1.5",
     "disqusjs": "3.0.3-canary.1",
-    "solid-js": "^1.9.3",
+    "solid-js": "^1.9.4",
     "tailwindcss": "^4.0.3"
   },
   "devDependencies": {
