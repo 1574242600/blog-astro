@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import type { InferEntrySchema } from 'astro:content'
 
 class PostService {
+    private static instance?: PostService
     private posts: PostInstance[] = []
 
     public constructor(posts: PostInstance[]) {
@@ -10,10 +11,12 @@ class PostService {
     }
 
     public static async init() {
+        if (PostService.instance) return PostService.instance
+
         const posts = await PostServiceUtils.globPost()
         const newPosts = await Promise.all(posts.map((post) => PostService.handlePostInstance(post)))
-
-        return new PostService(newPosts)
+        
+        return PostService.instance = new PostService(newPosts)
     }
 
     public getPosts(filter?: (entry: PostInstance) => boolean) {

@@ -8,16 +8,9 @@ get_data() {
     rm -rf /tmp/blog-data/
 }
 
-handleMd() {
-    for filepath in ./src/content/posts/*; do
-        bash ./script/copyImageToLocal.sh "$filepath"
-    done
-}
-
 main() {
     get_data
-    handleMd
-    
+
     pnpm run build
 }
 

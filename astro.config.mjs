@@ -36,6 +36,9 @@ export default defineConfig({
             remarkReadingTime
         ]
     },
+    image: {
+        domains: ['img.nworm.icu', 'assets.nworm.icu']
+    },
     redirects: {
         '/page/1': '/'
     },
