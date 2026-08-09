@@ -20,7 +20,7 @@ const t = useTranslations(Astro.currentLocale ?? config.site.lang);
   {t.blogAge.label}<span id="blog-age-value">{t.blogAge.computing}</span>
 </span>
 
-<script is:inline data-astro-rerun>
+<script>
   let intervalId = 0;
 
   function initBlogAge() {
@@ -58,5 +58,6 @@ const t = useTranslations(Astro.currentLocale ?? config.site.lang);
     intervalId = window.setInterval(update, 1000);
   }
 
+  document.addEventListener("astro:page-load", initBlogAge);
   initBlogAge();
 </script>
