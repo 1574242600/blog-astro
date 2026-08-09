@@ -1,66 +1,137 @@
 ---
-import Box from '@components/box.astro'
-import Head from '@components/head.astro'
-import FriendCard from '@components/linkCard.astro'
-import Layout from '@layouts/Root.astro'
-import CenterH from '@components/utils/centerH.astro'
-import LinksActivity from '@components/linksActivity'
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import LinkCard from "@/components/LinkCard.astro";
+import links from "../data/links.json";
+import dataConfig from "../data/config.json";
+import config from "@/config";
 
-import links from '@data/links.json'
-import siteMetadata from '@data/siteMetadata.json'
-import { friendsActivityApi } from '@data/config.json'
+type LinkData = {
+  name: string;
+  url: string;
+  avatar: string;
+  description: string;
+  isOneWay: boolean;
+};
 
-const friends = links.filter(({ isOneWay }) => !isOneWay)
-const oneWay = links.filter(({ isOneWay }) => isOneWay)
+const friends = links.filter(({ isOneWay }) => !isOneWay);
+const oneWay = links.filter(({ isOneWay }) => isOneWay);
+const { friendsActivityApi } = dataConfig;
 
 const description = links
-    .slice(0, 5)
-    .map(data => `${data.name} (${data.description})`)
-    .join(' | ')
+  .slice(0, 5)
+  .map((data: LinkData) => `${data.name} (${data.description})`)
+  .join(" | ");
 ---
 
-<Head>
-    <title>链接{' | '}{siteMetadata.title}</title>
-    <meta name='description' content={description} />
-</Head>
-<Layout pagePath='/links'>
-    <CenterH className='lg:mt-8'>
-        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full h-80'>
-            <LinksActivity apiUrl={friendsActivityApi} client:only='solid' />
-        </Box>
-    </CenterH>
+<Layout
+  title={`链接 | ${config.site.title}`}
+  description={description}
+>
+  <Header />
 
-    <CenterH className='mt-8'>
-        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full'>
-            <h2 class="m-[8px_16px_0_16px] text-xl font-bold border-b-2 border-gray-200">友人们</h2>
-            <div
-                class='grid md:grid-cols-2 grid-cols-1 gap-4 p-4'
-            >
-                {
-                    friends.map(node => (
-                        <div>
-                            <FriendCard data={node} className='h-16' />
-                        </div>
-                    ))
-                }
-            </div>
-        </Box>
-    </CenterH>
+  <Breadcrumb />
 
-    <CenterH className='mt-8 mb-8'>
-        <Box className='xl:w-3xl lg:w-2xl md:w-xl w-full'>
-            <h2 class="m-[8px_16px_0_16px] text-xl font-bold border-b-2 border-gray-200">单向链接</h2>
-            <div
-                class='grid md:grid-cols-2 grid-cols-1 gap-4 p-4'
-            >
-                {
-                    oneWay.map(node => (
-                        <div>
-                            <FriendCard data={node} className='h-16' />
-                        </div>
-                    ))
-                }
-            </div>
-        </Box>
-    </CenterH>
+  <Main pageTitle="链接" pageDesc="友人们与单向链接">
+    <section class="mb-10">
+      <h2 class="mb-4 text-lg font-semibold">友人最近动态</h2>
+      <div
+        id="links-activity"
+        class="border-border max-h-80 overflow-y-auto border"
+        data-api={friendsActivityApi}
+      >
+        <div class="p-4 text-center text-sm text-muted-foreground">
+          加载中...
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="mb-4 text-lg font-semibold">友人们</h2>
+      <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {friends.map(link => <LinkCard {link} />)}
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="mb-4 text-lg font-semibold">单向链接</h2>
+      <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {oneWay.map(link => <LinkCard {link} />)}
+      </ul>
+    </section>
+  </Main>
+
+  <Footer />
 </Layout>
+
+<script>
+  type ActivityItem = {
+    url: string;
+    date: number;
+    title: string;
+    siteName: string;
+  };
+
+  async function loadActivity() {
+    const container = document.getElementById("links-activity");
+    if (!container) return;
+
+    const apiUrl = container.dataset.api;
+    if (!apiUrl) return;
+
+    try {
+      const url = new URL(apiUrl);
+      url.searchParams.append("items", "20");
+      url.searchParams.append("offset", "0");
+
+      const res = await fetch(url);
+      const result = await res.json();
+      if (res.status !== 200) throw new Error(result.msg);
+
+      if (!Array.isArray(result.list) || result.list.length === 0) {
+        container.innerHTML = "";
+        return;
+      }
+
+      container.innerHTML = "";
+      for (const item of result.list as ActivityItem[]) {
+        const row = document.createElement("div");
+        row.className =
+          "border-border hover:bg-muted flex flex-col gap-1 border-b px-4 py-2 last:border-b-0 sm:flex-row sm:items-center sm:gap-3";
+
+        const siteName = document.createElement("span");
+        siteName.className = "shrink-0 truncate text-sm font-bold sm:w-28";
+        siteName.title = item.siteName;
+        siteName.textContent = item.siteName;
+
+        const link = document.createElement("a");
+        link.className = "hover:text-accent grow truncate text-sm";
+        link.href = item.url;
+        link.target = "_blank";
+        link.title = item.title;
+        link.textContent = item.title;
+
+        const date = document.createElement("time");
+        date.className = "shrink-0 text-xs text-muted-foreground";
+        const d = new Date(+item.date * 1000);
+        date.dateTime = d.toISOString();
+        date.textContent = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+
+        row.append(siteName, link, date);
+        container.appendChild(row);
+      }
+    } catch (err) {
+      container.innerHTML = "";
+      const error = document.createElement("div");
+      error.className = "p-4 text-sm text-destructive";
+      error.textContent = err instanceof Error ? err.message : "加载失败";
+      container.appendChild(error);
+    }
+  }
+
+  document.addEventListener("astro:page-load", loadActivity);
+  loadActivity();
+</script>

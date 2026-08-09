@@ -20,8 +20,22 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-.hintrc
+# jetbrains setting folder
+.idea/
 
-src/data
+# pagefind
+public/pagefind
+
+# pnpm
+.pnpm-store
+
+# docker compose
+compose.override.yaml
+
+# blog-data repo copies (fetched by build.sh)
 src/content
-cache/
+src/data
+
+# wrangler / cloudflare pages local cache
+.wrangler
+

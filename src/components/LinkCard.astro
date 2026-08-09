@@ -1,0 +1,35 @@
+---
+type Props = {
+  link: {
+    name: string;
+    url: string;
+    avatar: string;
+    description: string;
+  };
+};
+
+const { link } = Astro.props;
+---
+
+<li class="my-0">
+  <a
+    href={link.url}
+    target="_blank"
+    class="border-border hover:border-accent flex items-center gap-3 border p-2 transition-colors"
+  >
+    <img
+      src={link.avatar}
+      alt={`${link.name} 的头像`}
+      width={64}
+      height={64}
+      loading="lazy"
+      class="border-border h-16 w-16 shrink-0 border-r object-cover"
+    />
+    <div class="min-w-0">
+      <div class="truncate text-sm font-bold">{link.name}</div>
+      <div class="text-muted-foreground truncate text-xs">
+        {link.description}
+      </div>
+    </div>
+  </a>
+</li>

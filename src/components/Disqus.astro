@@ -1,0 +1,65 @@
+---
+import siteMetadata from "../data/siteMetadata.json";
+
+const commentConfig = siteMetadata.comment.config;
+
+interface Props {
+  title: string;
+  slug: string;
+}
+
+const { title, slug } = Astro.props;
+const identifier = `/post/${slug}/`;
+---
+
+<div
+  id="disqus-comment"
+  data-title={title}
+  data-site-title={siteMetadata.title}
+  data-id={identifier}
+  data-shortname={commentConfig.shortname}
+  data-api={commentConfig.api}
+  data-apikey={commentConfig.apikey}
+>
+  <div class="text-muted-foreground animate-pulse font-medium">加载中...</div>
+</div>
+
+<script>
+  import DisqusJS from "disqusjs";
+
+  function initDisqus() {
+    const div = document.getElementById("disqus-comment");
+    if (!div) return;
+
+    const { title, id, shortname, siteTitle, api, apikey } = div.dataset;
+
+    if (window.disqusjs) window.disqusjs.destroy();
+    window.disqusjs = new DisqusJS({
+      shortname: shortname as string,
+      siteName: siteTitle,
+      identifier: id,
+      title,
+      url: window.location.href,
+      api,
+      apikey: apikey as string,
+    });
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          requestIdleCallback(() => {
+            div.innerHTML = "";
+            window.disqusjs?.render(div);
+          });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(div);
+  }
+
+  document.addEventListener("astro:page-load", initDisqus);
+  initDisqus();
+</script>

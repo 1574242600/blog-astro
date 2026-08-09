@@ -1,24 +1,24 @@
-import rss from '@astrojs/rss'
-import PostService from '@service/postService'
-import siteMetadata from '@data/siteMetadata.json'
+import rss from "@astrojs/rss";
+import { getCollection } from "astro:content";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
+import config from "@/config";
 
 export async function GET() {
-    const ps = await PostService.init()
-    const posts = ps.getPosts()
+  const posts = await getCollection("posts");
+  const sortedPosts = getSortedPosts(posts);
 
-    return rss({
-        title: siteMetadata.title,  
-        description: siteMetadata.description,
-        site: siteMetadata.siteUrl,
-        items: posts.map(post => ({
-            title: post.frontmatter.title,
-            pubDate: post.frontmatter.date,
-            description: post.frontmatter.excerpt.text,
-            link: `/post/${post.frontmatter.slug}/`,
-            categories: post.frontmatter.tags
-        })),
-        customData: '<language>zh-CN</language>' + 
-                    `<lastBuildDate>${(new Date()).toUTCString()}</lastBuildDate>`
-        ,
-    })
+  return rss({
+    title: config.site.title,
+    description: config.site.description,
+    site: config.site.url,
+    items: sortedPosts.map(({ data, id, filePath }) => ({
+      link: getPostUrl(id, filePath, config.site.lang),
+      title: data.title,
+      description: data.description,
+      pubDate: new Date(data.modDatetime ?? data.pubDatetime),
+      categories: data.tags,
+    })),
+    customData: `<language>zh-CN</language>`,
+  });
 }

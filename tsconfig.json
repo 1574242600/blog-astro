@@ -1,18 +1,11 @@
 {
-  "compilerOptions": {         
-    "baseUrl": ".",         
-    "esModuleInterop": true,                                                          
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js",
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "public/pagefind"],
+  "compilerOptions": {
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@data/*": ["./src/data/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@service/*": ["./src/service/*"]
+      "@/*": ["./src/*"],
+      "@/astro-paper.config": ["./astro-paper.config"]
     }
-  },
-  "extends": "astro/tsconfigs/strict"
+  }
 }

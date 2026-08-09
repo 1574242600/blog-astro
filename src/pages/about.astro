@@ -1,52 +1,36 @@
 ---
-import Box from '@components/box.astro'
-import Divider from '@components/divider.astro'
-import Layout from '@layouts/Root.astro'
-import Head from '@components/head.astro'
-import DisqusJS from '@components/comment/disqus-js.astro'
-import CenterH from '@components/utils/centerH.astro'
+import { getEntry, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
 
-import siteMetadata from '@data/siteMetadata.json'
-import PostService from '@service/postService'
+const about = await getEntry("pages", "about");
 
-const ps = await PostService.init()
-const { frontmatter, Content } = ps.getPost('about')
+if (!about) {
+  throw new Error(
+    "Missing content entry: `about.md` or `about.mdx` in `src/content/pages/`"
+  );
+}
 
-const {
-    comment: { config: commentConfig },
-} = siteMetadata
+const { Content } = await render(about);
 ---
 
-<Head>
-    <title>关于{' | '}{siteMetadata.title}</title>
-    <meta name='description' content={'关于页面'} />
-</Head>
-<Layout pagePath='/about'>
-    <CenterH className='lg:mt-8'>
-        <div class='xl:w-3xl lg:w-2xl md:w-xl w-full'>
-            <Box>
-                <article class='p-6'>
-                    <h1 class='text-2xl font-bold font-mono text-center mb-2'>
-                        {frontmatter.title}
-                    </h1>
-                    <Divider />
-                    <div class='heti m-auto pt-4 max-w-2xl!'>
-                        <Content />
-                    </div>
-                </article>
-            </Box>
-            <Box className='mt-8 mb-8'>
-                <div class='p-2'>
-                    <DisqusJS
-                        title={frontmatter.title}
-                        siteTitle={siteMetadata.title}
-                        identifier='/post/about/'
-                        shortname={commentConfig.shortname}
-                        api={commentConfig.api}
-                        apiKey={commentConfig.apikey}
-                    />
-                </div>
-            </Box>
-        </div>
-    </CenterH>
+<Layout
+  title={`${about.data.title} | ${config.site.title}`}
+  description={about.data.description}
+  ogImage={about.data.ogImage}
+  canonicalURL={about.data.canonicalURL}
+>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={about.data.title} class="app-prose">
+    <Content />
+  </Main>
+
+  <Footer />
 </Layout>

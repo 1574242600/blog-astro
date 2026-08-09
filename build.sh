@@ -1,9 +1,16 @@
-get_data() {
-    git clone https://github.com/1574242600/blog-data.git /tmp/blog-data
+#!/usr/bin/env bash
+set -euo pipefail
 
-    cp -R /tmp/blog-data/content ./src
-    cp -R /tmp/blog-data/data ./src
-    cp -R /tmp/blog-data/script .
+DATA_REPO="https://github.com/1574242600/blog-data.git"
+
+get_data() {
+    rm -rf /tmp/blog-data
+    git clone --depth 1 "$DATA_REPO" /tmp/blog-data
+
+    rm -rf ./src/content
+    rm -rf ./src/data
+    cp -R /tmp/blog-data/content ./src/content
+    cp -R /tmp/blog-data/data ./src/data
 
     rm -rf /tmp/blog-data/
 }

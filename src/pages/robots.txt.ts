@@ -1,12 +1,13 @@
-import siteMetadata from '@data/siteMetadata.json'
+import type { APIRoute } from "astro";
 
-const robotsTxt = `
+const getRobotsTxt = (sitemapURL: URL) => `
 User-agent: *
 Allow: /
 
-Sitemap: ${siteMetadata.siteUrl}/sitemap-index.xml
-`.trim()
+Sitemap: ${sitemapURL.href}
+`;
 
-export function GET() {
-    return new Response(robotsTxt)
-}
+export const GET: APIRoute = ({ site }) => {
+  const sitemapURL = new URL("sitemap-index.xml", site);
+  return new Response(getRobotsTxt(sitemapURL));
+};

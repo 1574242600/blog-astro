@@ -1,0 +1,11 @@
+/page/1  /  301
+/page/*  /posts/:splat  301
+/tag/*/1  /tags/:splat  301
+/friends/  /links/  301
+/post/about  /about  301
+/post/about/  /about  301
+/post/test  /posts/decap-cms-test/  301
+/post/test/  /posts/decap-cms-test/  301
+/post/test.webp  /posts/decap-cms-test/index.png  301
+/post/*.webp  /posts/:splat/index.png  301
+/post/*  /posts/:splat  301

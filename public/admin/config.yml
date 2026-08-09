@@ -22,11 +22,23 @@ collections:
     fields:
       - { label: "标题", name: "title", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "描述", name: "description", widget: "text", required: false }
       - { label: "作者", name: "author", widget: "string", default: "Nworm" }
-      - { label: "发布日期", name: "date", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
-      - { label: "更新日期", name: "update", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss", required: false }
+      - { label: "发布日期", name: "pubDatetime", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss" }
+      - { label: "更新日期", name: "modDatetime", widget: "datetime", date_format: "YYYY-MM-DD HH:mm:ss", required: false }
       - { label: "标签", name: "tags", widget: "list", required: false }
-      - { label: "草稿", name: "draft", widget: "boolean", default: true }
+      - { label: "精选", name: "featured", widget: "boolean", default: false, required: false }
+      - { label: "草稿", name: "draft", widget: "boolean", default: true, required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "页面"
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "描述", name: "description", widget: "text", required: false }
       - { label: "正文", name: "body", widget: "markdown" }
 
 search: false
