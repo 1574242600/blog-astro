@@ -47,6 +47,12 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  image: {
+    remotePatterns: [
+      { protocol: "https", hostname: "i.loli.net" },
+      { protocol: "https", hostname: "**.nworm.icu" },
+    ],
+  },
   markdown: {
     processor: unified({
       remarkPlugins: [
