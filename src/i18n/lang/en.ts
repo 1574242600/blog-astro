@@ -33,6 +33,31 @@ export default {
     featured: "Featured",
     recentPosts: "Recent Posts",
     allPosts: "All Posts",
+    quoteOfTheDay: "Quote of the Day",
+  },
+  hitokoto: {
+    loading: "Loading a quote...",
+  },
+  blogAge: {
+    label: "Blog age: ",
+    computing: "calculating...",
+    days: "d ",
+    hours: "h ",
+    minutes: "m ",
+    seconds: "s",
+  },
+  links: {
+    title: "Links",
+    desc: "Friends and one-way links",
+    activityTitle: "Recent Activity",
+    friendsTitle: "Friends",
+    oneWayTitle: "One-way Links",
+    loading: "Loading...",
+    loadFailed: "Failed to load",
+    avatarAlt: "{{name}}'s avatar",
+  },
+  disqus: {
+    loading: "Loading...",
   },
   footer: {
     copyright: "Copyright",

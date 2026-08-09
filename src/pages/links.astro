@@ -8,6 +8,9 @@ import LinkCard from "@/components/LinkCard.astro";
 import links from "../data/links.json";
 import dataConfig from "../data/config.json";
 import config from "@/config";
+import { useTranslations } from "@/i18n";
+
+const t = useTranslations(Astro.currentLocale ?? config.site.lang);
 
 type LinkData = {
   name: string;
@@ -28,36 +31,37 @@ const description = links
 ---
 
 <Layout
-  title={`链接 | ${config.site.title}`}
+  title={`${t.links.title} | ${config.site.title}`}
   description={description}
 >
   <Header />
 
   <Breadcrumb />
 
-  <Main pageTitle="链接" pageDesc="友人们与单向链接">
+  <Main pageTitle={t.links.title} pageDesc={t.links.desc}>
     <section class="mb-10">
-      <h2 class="mb-4 text-lg font-semibold">友人最近动态</h2>
+      <h2 class="mb-4 text-lg font-semibold">{t.links.activityTitle}</h2>
       <div
         id="links-activity"
         class="border-border max-h-80 overflow-y-auto border"
         data-api={friendsActivityApi}
+        data-load-failed={t.links.loadFailed}
       >
         <div class="p-4 text-center text-sm text-muted-foreground">
-          加载中...
+          {t.links.loading}
         </div>
       </div>
     </section>
 
     <section class="mb-10">
-      <h2 class="mb-4 text-lg font-semibold">友人们</h2>
+      <h2 class="mb-4 text-lg font-semibold">{t.links.friendsTitle}</h2>
       <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
         {friends.map(link => <LinkCard {link} />)}
       </ul>
     </section>
 
     <section>
-      <h2 class="mb-4 text-lg font-semibold">单向链接</h2>
+      <h2 class="mb-4 text-lg font-semibold">{t.links.oneWayTitle}</h2>
       <ul class="grid grid-cols-1 gap-4 md:grid-cols-2">
         {oneWay.map(link => <LinkCard {link} />)}
       </ul>
@@ -127,7 +131,8 @@ const description = links
       container.innerHTML = "";
       const error = document.createElement("div");
       error.className = "p-4 text-sm text-destructive";
-      error.textContent = err instanceof Error ? err.message : "加载失败";
+      error.textContent =
+        err instanceof Error ? err.message : (container.dataset.loadFailed ?? "");
       container.appendChild(error);
     }
   }

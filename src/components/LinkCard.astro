@@ -1,4 +1,7 @@
 ---
+import { tplStr, useTranslations } from "@/i18n";
+import config from "@/config";
+
 type Props = {
   link: {
     name: string;
@@ -9,6 +12,7 @@ type Props = {
 };
 
 const { link } = Astro.props;
+const t = useTranslations(Astro.currentLocale ?? config.site.lang);
 ---
 
 <li class="my-0">
@@ -19,7 +23,7 @@ const { link } = Astro.props;
   >
     <img
       src={link.avatar}
-      alt={`${link.name} 的头像`}
+      alt={tplStr(t.links.avatarAlt, { name: link.name })}
       width={64}
       height={64}
       loading="lazy"

@@ -31,11 +31,11 @@ const t = useTranslations(Astro.currentLocale);
 
 const isModified = modDatetime && modDatetime > pubDatetime;
 
-const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
-  postTimezone ?? config.site.timezone
-);
-
-const date = datetime.format("D MMM, YYYY");
+const tz = postTimezone ?? config.site.timezone;
+const pubDate = dayjs(pubDatetime).tz(tz).format("YYYY年M月D日");
+const modDate = isModified
+  ? dayjs(modDatetime).tz(tz).format("YYYY年M月D日")
+  : null;
 ---
 
 <div
@@ -50,14 +50,30 @@ const date = datetime.format("D MMM, YYYY");
   {
     isModified && (
       <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        {t.post.updatedAt}:
+        {t.post.publishedAt}:
       </span>
     )
   }
   <time
     class:list={["text-sm", { "sm:text-base": size === "lg" }]}
-    datetime={datetime.toISOString()}
+    datetime={dayjs(pubDatetime).tz(tz).toISOString()}
   >
-    {date}
+    {pubDate}
   </time>
+  {
+    isModified && (
+      <>
+        <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
+        <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+          {t.post.updatedAt}:
+        </span>
+        <time
+          class:list={["text-sm", { "sm:text-base": size === "lg" }]}
+          datetime={dayjs(modDatetime).tz(tz).toISOString()}
+        >
+          {modDate}
+        </time>
+      </>
+    )
+  }
 </div>

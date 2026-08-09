@@ -31,6 +31,31 @@ export interface UIStrings {
     featured: string;
     recentPosts: string;
     allPosts: string;
+    quoteOfTheDay: string;
+  };
+  hitokoto: {
+    loading: string;
+  };
+  blogAge: {
+    label: string;
+    computing: string;
+    days: string;
+    hours: string;
+    minutes: string;
+    seconds: string;
+  };
+  links: {
+    title: string;
+    desc: string;
+    activityTitle: string;
+    friendsTitle: string;
+    oneWayTitle: string;
+    loading: string;
+    loadFailed: string;
+    avatarAlt: string;
+  };
+  disqus: {
+    loading: string;
   };
   footer: {
     copyright: string;

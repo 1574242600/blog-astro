@@ -1,0 +1,62 @@
+---
+import siteMetadata from "../data/siteMetadata.json";
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+
+const since = siteMetadata.since;
+const t = useTranslations(Astro.currentLocale ?? config.site.lang);
+---
+
+<span
+  id="blog-age"
+  class="tabular-nums"
+  title={since}
+  data-since={since}
+  data-days={t.blogAge.days}
+  data-hours={t.blogAge.hours}
+  data-minutes={t.blogAge.minutes}
+  data-seconds={t.blogAge.seconds}
+>
+  {t.blogAge.label}<span id="blog-age-value">{t.blogAge.computing}</span>
+</span>
+
+<script is:inline data-astro-rerun>
+  let intervalId = 0;
+
+  function initBlogAge() {
+    if (intervalId) clearInterval(intervalId);
+
+    const container = document.getElementById("blog-age");
+    const valueEl = document.getElementById("blog-age-value");
+    if (!container || !valueEl) return;
+
+    const birthDay = new Date(container.dataset.since ?? "");
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const suffix = {
+      days: container.dataset.days ?? "",
+      hours: container.dataset.hours ?? "",
+      minutes: container.dataset.minutes ?? "",
+      seconds: container.dataset.seconds ?? "",
+    };
+
+    const update = () => {
+      const timeold = Date.now() - birthDay.getTime();
+      const eDaysold = timeold / msPerDay;
+      const daysold = Math.floor(eDaysold);
+      const eHrsold = (eDaysold - daysold) * 24;
+      const hrsold = Math.floor(eHrsold);
+      const eMinsold = (eHrsold - hrsold) * 60;
+      const minsold = Math.floor(eMinsold);
+      const seconds = Math.floor((eMinsold - minsold) * 60);
+
+      valueEl.textContent =
+        `${daysold}${suffix.days}${hrsold}${suffix.hours}` +
+        `${minsold}${suffix.minutes}${seconds}${suffix.seconds}`;
+    };
+
+    update();
+    intervalId = window.setInterval(update, 1000);
+  }
+
+  initBlogAge();
+</script>

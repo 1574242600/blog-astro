@@ -1,0 +1,84 @@
+---
+import config from "@/config";
+import { useTranslations } from "@/i18n";
+
+const t = useTranslations(Astro.currentLocale ?? config.site.lang);
+---
+
+<figure id="hitokoto" class="mt-2">
+  <blockquote class="border-border border-s-2 ps-4">
+    <p id="hitokoto-text" class="text-lg">{t.hitokoto.loading}</p>
+  </blockquote>
+  <figcaption
+    id="hitokoto-from"
+    class="text-muted-foreground mt-2 text-sm text-end"
+  ></figcaption>
+</figure>
+
+<script>
+  const QUOTE_KEY = "hitokoto-quote";
+
+  async function loadHitokoto() {
+    const figure = document.getElementById("hitokoto");
+    const textEl = document.getElementById("hitokoto-text");
+    const fromEl = document.getElementById("hitokoto-from");
+    if (!figure || !textEl || !fromEl) return;
+
+    const today = new Date().toISOString().slice(0, 10);
+
+    let quote: {
+      hitokoto: string;
+      from?: string;
+      from_who?: string;
+      uuid?: string;
+    } | null = null;
+
+    try {
+      const cached = JSON.parse(localStorage.getItem(QUOTE_KEY) ?? "null");
+      if (cached?.date === today) quote = cached.quote;
+
+      if (!quote) {
+        const res = await fetch(
+          "https://v1.hitokoto.cn/?charset=utf-8&max_length=100"
+        );
+        if (!res.ok) throw new Error(`hitokoto ${res.status}`);
+        quote = await res.json();
+
+        localStorage.setItem(QUOTE_KEY, JSON.stringify({ date: today, quote }));
+      }
+    } catch {
+      figure.hidden = true;
+      return;
+    }
+
+    if (!quote) return;
+
+    textEl.textContent = quote.hitokoto;
+
+    const author = (quote.from_who ?? "").trim();
+    const source = (quote.from ?? "").trim();
+
+    let label = "";
+    if (author) label += author;
+    if (source) label += `《${source}》`;
+
+    if (label) {
+      if (quote.uuid) {
+        const link = document.createElement("a");
+        link.href = `https://hitokoto.cn?uuid=${quote.uuid}`;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.className = "hover:text-accent underline decoration-dashed underline-offset-4";
+        link.textContent = `—— ${label}`;
+        fromEl.replaceChildren(link);
+      } else {
+        fromEl.textContent = `—— ${label}`;
+      }
+    } else {
+      fromEl.textContent = "";
+    }
+  }
+
+  document.addEventListener("astro:page-load", loadHitokoto);
+  loadHitokoto();
+</script>

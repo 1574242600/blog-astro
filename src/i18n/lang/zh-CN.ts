@@ -33,6 +33,31 @@ export default {
     featured: "精选",
     recentPosts: "最新文章",
     allPosts: "所有文章",
+    quoteOfTheDay: "每日一言",
+  },
+  hitokoto: {
+    loading: "一言加载中...",
+  },
+  blogAge: {
+    label: "博客已存活: ",
+    computing: "计算中...",
+    days: "天",
+    hours: "小时",
+    minutes: "分",
+    seconds: "秒",
+  },
+  links: {
+    title: "链接",
+    desc: "友人们与单向链接",
+    activityTitle: "友人最近动态",
+    friendsTitle: "友人们",
+    oneWayTitle: "单向链接",
+    loading: "加载中...",
+    loadFailed: "加载失败",
+    avatarAlt: "{{name}} 的头像",
+  },
+  disqus: {
+    loading: "加载中...",
   },
   footer: {
     copyright: "版权所有",

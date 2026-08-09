@@ -1,7 +1,11 @@
 ---
+import "disqusjs/dist/styles/disqusjs.css";
 import siteMetadata from "../data/siteMetadata.json";
+import config from "@/config";
+import { useTranslations } from "@/i18n";
 
 const commentConfig = siteMetadata.comment.config;
+const t = useTranslations(Astro.currentLocale ?? config.site.lang);
 
 interface Props {
   title: string;
@@ -21,7 +25,9 @@ const identifier = `/post/${slug}/`;
   data-api={commentConfig.api}
   data-apikey={commentConfig.apikey}
 >
-  <div class="text-muted-foreground animate-pulse font-medium">加载中...</div>
+  <div class="text-muted-foreground animate-pulse font-medium">
+    {t.disqus.loading}
+  </div>
 </div>
 
 <script>
